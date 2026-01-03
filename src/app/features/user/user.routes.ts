@@ -4,8 +4,8 @@ export const USER_ROUTES: Routes = [
   {
     path: 'search',
     loadComponent: () =>
-      import('./pages/search-rooms/search-rooms')
-        .then(c => c.SearchRooms)
+      import('./pages/search/search')
+        .then(c => c.SearchComponent)
   },
   {
     path: 'bookings',
@@ -25,5 +25,11 @@ export const USER_ROUTES: Routes = [
       import('./pages/login/login')
         .then(c => c.LoginComponent)
   },
+  {
+  path: 'hotels/:hotelId/availability',
+  loadComponent: () =>
+    import('./pages/hotel-availability/hotel-availability')
+      .then(c => c.HotelAvailability)
+}
 
 ];

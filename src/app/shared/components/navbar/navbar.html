@@ -1,1 +1,38 @@
-<p>navbar works!</p>
+<nav style="padding: 10px; border-bottom: 1px solid #ccc">
+  <a routerLink="/">Home</a>
+
+  <!-- NOT LOGGED IN -->
+  <ng-container *ngIf="!authService.isLoggedIn()">
+    | <a routerLink="/user/login">Login</a>
+    | <a routerLink="/user/register">Register</a>
+  </ng-container>
+
+  <!-- LOGGED IN -->
+  <ng-container *ngIf="authService.isLoggedIn()">
+
+    <!-- ADMIN -->
+    <ng-container *ngIf="role === 'ADMIN'">
+      | <a routerLink="/admin">Admin Dashboard</a>
+    </ng-container>
+
+    <!-- MANAGER -->
+    <ng-container *ngIf="role === 'MANAGER'">
+      | <a routerLink="/manager">Manager Dashboard</a>
+    </ng-container>
+
+    <!-- RECEPTIONIST -->
+    <ng-container *ngIf="role === 'RECEPTIONIST'">
+      | <a routerLink="/receptionist">Receptionist Dashboard</a>
+    </ng-container>
+
+    <!-- GUEST -->
+    <ng-container *ngIf="role === 'GUEST'">
+      | <a routerLink="/user/search">Search Rooms</a>
+      | <a routerLink="/user/bookings">My Bookings</a>
+    </ng-container>
+
+    | <button (click)="logout()">Logout</button>
+
+  </ng-container>
+
+</nav>

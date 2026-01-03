@@ -1,0 +1,59 @@
+<h2>Search Hotels</h2>
+
+<form (ngSubmit)="searchHotels()">
+  <label>City</label>
+  <input type="text" [(ngModel)]="city" name="city" />
+
+  <button type="submit">Search</button>
+</form>
+
+
+<p *ngIf="error" style="color:red">{{ error }}</p>
+
+<div *ngIf="hotels.length > 0">
+  <h3>Available Hotels</h3>
+
+  <div *ngFor="let hotel of hotels" style="border:1px solid #ccc; margin:10px; padding:10px">
+    <h4>{{ hotel.name }}</h4>
+    <p>{{ hotel.address }}</p>
+
+    
+    <button type="button" (click)="selectHotel(hotel.id)">
+  Check Availability
+</button>
+  </div>
+
+  <div *ngIf="selectedHotelId" style="margin-top:20px; border-top:1px solid #ccc; padding-top:10px">
+
+  <h3>Check Availability</h3>
+
+  <label>Check-in</label>
+  <input type="date" [(ngModel)]="checkIn" />
+
+  <label>Check-out</label>
+  <input type="date" [(ngModel)]="checkOut" />
+
+  <button type="button" (click)="checkAvailability()">Search</button>
+
+  <p *ngIf="availabilityError" style="color:red">
+    {{ availabilityError }}
+  </p>
+
+  <div *ngIf="availability">
+    <h4>Available Rooms</h4>
+
+    <div *ngFor="let c of availability.categories"
+         style="border:1px solid #ddd; margin:10px; padding:10px">
+
+      <b>{{ c.categoryName }}</b><br />
+      Price: ₹{{ c.pricePerNight }}<br />
+      Available Rooms: {{ c.availableRooms }}
+
+      <br />
+      <button type="button">Book Now</button>
+    </div>
+  </div>
+
+</div>
+
+</div>
