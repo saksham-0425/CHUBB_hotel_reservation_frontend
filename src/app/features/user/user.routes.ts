@@ -1,4 +1,9 @@
 import { Routes } from '@angular/router';
+import { authGuard } from '../../core/guards/auth-guard';
+import { roleGuard } from '../../core/guards/role-guard';
+
+import { BookingDetailsComponent } from './pages/booking-details/booking-details';
+
 
 export const USER_ROUTES: Routes = [
   {
@@ -7,6 +12,21 @@ export const USER_ROUTES: Routes = [
       import('./pages/search/search')
         .then(c => c.SearchComponent)
   },
+  {
+  path: 'bookings/create',
+  loadComponent: () =>
+    import('./pages/create-booking/create-booking')
+      .then(c => c.CreateBookingComponent),
+  canActivate: [authGuard, roleGuard],
+  data: { roles: ['GUEST'] }
+},
+{
+  path: 'bookings/:id',
+  loadComponent: () =>
+    import('./pages/booking-details/booking-details')
+      .then(c => c.BookingDetailsComponent),
+  canActivate: [authGuard]
+},
   {
     path: 'bookings',
     loadComponent: () =>
@@ -29,7 +49,7 @@ export const USER_ROUTES: Routes = [
   path: 'hotels/:hotelId/availability',
   loadComponent: () =>
     import('./pages/hotel-availability/hotel-availability')
-      .then(c => c.HotelAvailability)
+      .then(c => c.HotelAvailabilityComponent)
 }
 
 ];

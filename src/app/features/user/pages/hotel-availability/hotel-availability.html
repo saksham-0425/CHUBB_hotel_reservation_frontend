@@ -1,1 +1,28 @@
-<p>hotel-availability works!</p>
+<h2>Check Availability</h2>
+
+<label>Check-in</label>
+<input type="date" [(ngModel)]="checkIn" />
+
+<label>Check-out</label>
+<input type="date" [(ngModel)]="checkOut" />
+
+<button (click)="searchAvailability()">Search</button>
+
+<p *ngIf="error" style="color:red">{{ error }}</p>
+
+<div *ngIf="availability">
+  <h3>Available Rooms</h3>
+
+  <div *ngFor="let c of availability.categories"
+       style="border:1px solid #ccc; margin:10px; padding:10px">
+
+    <b>{{ c.categoryName }}</b><br />
+    Price: ₹{{ c.pricePerNight }}<br />
+    Available Rooms: {{ c.availableRooms }}<br />
+
+    <button
+  (click)="goToBooking(c.categoryId)">
+  Book Now
+</button>
+  </div>
+</div>

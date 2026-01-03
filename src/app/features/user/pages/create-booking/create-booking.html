@@ -1,0 +1,24 @@
+<h2>Book Room</h2>
+
+<form [formGroup]="bookingForm" (ngSubmit)="submitBooking()">
+
+  <label>Guest Name</label><br />
+  <input type="text" formControlName="guestName" /><br /><br />
+
+  <label>Number of Guests</label><br />
+  <input type="number" formControlName="numberOfGuests" min="1" /><br /><br />
+
+  <label>Number of Rooms</label><br />
+  <input type="number" formControlName="numberOfRooms" min="1" /><br /><br />
+
+  <label>Check-in Date</label><br />
+  <input type="date" formControlName="checkInDate" /><br /><br />
+
+  <label>Check-out Date</label><br />
+  <input type="date" formControlName="checkOutDate" /><br /><br />
+
+  <button type="submit" [disabled]="bookingForm.invalid">
+    Confirm Booking
+  </button>
+
+</form>

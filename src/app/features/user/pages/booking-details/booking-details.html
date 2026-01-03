@@ -1,0 +1,39 @@
+<h2>Booking Confirmed!</h2>
+<p *ngIf="loading">Loading booking details...</p>
+
+<p *ngIf="errorMessage" style="color:red">
+  {{ errorMessage }}
+</p>
+<div *ngIf="!loading && booking">
+
+  <p><b>Booking Reference:</b> {{ booking.bookingReference }}</p>
+  <p><b>Status:</b> {{ booking.status }}</p>
+
+  <p *ngIf="booking.status === 'BOOKED'">
+    Awaiting confirmation from hotel manager.
+  </p>
+
+  <p *ngIf="booking.status === 'CONFIRMED'">
+    Your booking is confirmed. Please arrive on time.
+  </p>
+
+  <p *ngIf="booking.status === 'CANCELLED'" style="color:red">
+    This booking has been cancelled.
+  </p>
+
+  <hr />
+
+  <p><b>Guest Name:</b> {{ booking.guestName }}</p>
+  <p><b>Number of Guests:</b> {{ booking.numberOfGuests }}</p>
+  <p><b>Number of Rooms:</b> {{ booking.numberOfRooms }}</p>
+
+  <hr />
+
+  <p><b>Check-in Date:</b> {{ booking.checkInDate }}</p>
+  <p><b>Check-out Date:</b> {{ booking.checkOutDate }}</p>
+
+  <hr />
+
+  <p><b>Total Amount:</b> ₹{{ booking.totalAmount }}</p>
+
+</div>
