@@ -1,1 +1,51 @@
-<p>my-bookings works!</p>
+<h2>My Bookings</h2>
+
+<!-- Loading state -->
+<p *ngIf="loading">Loading your bookings...</p>
+<p *ngIf="!loading && errorMessage" style="color:red">
+  {{ errorMessage }}
+</p>
+
+<table *ngIf="!loading && bookings.length > 0">
+  <thead>
+    <tr>
+      <th>Reference</th>
+      <th>Status</th>
+      <th>Check-in</th>
+      <th>Check-out</th>
+      <th>Amount</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let booking of bookings">
+      <td>{{ booking.bookingReference }}</td>
+      <td>{{ booking.status }}</td>
+      <td>{{ booking.checkInDate }}</td>
+      <td>{{ booking.checkOutDate }}</td>
+      <td>₹{{ booking.totalAmount }}</td>
+      <td>
+  <button (click)="viewBooking(booking.bookingId)">
+    View
+  </button>
+
+  <button
+  *ngIf="booking.status === 'CONFIRMED' && !isPaid(booking.bookingId)"
+  (click)="payBooking(booking.bookingId)">
+  Pay
+</button>
+
+<span *ngIf="isPaid(booking.bookingId)" style="color:green; margin-left:8px">
+  Paid
+</span>
+</td>
+      
+    </tr>
+  </tbody>
+</table>
+
+<!-- Empty state -->
+<p *ngIf="!loading && bookings.length === 0 && !errorMessage">
+  You have no bookings yet.
+</p>

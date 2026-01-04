@@ -8,7 +8,6 @@ export interface CreateBookingRequest {
   checkOutDate: string;
 }
 
-
 export interface BookingResponse {
   bookingId: number;
   bookingReference: string;

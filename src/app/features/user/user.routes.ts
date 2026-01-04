@@ -5,6 +5,7 @@ import { roleGuard } from '../../core/guards/role-guard';
 import { BookingDetailsComponent } from './pages/booking-details/booking-details';
 
 
+
 export const USER_ROUTES: Routes = [
   {
     path: 'search',
@@ -31,8 +32,12 @@ export const USER_ROUTES: Routes = [
     path: 'bookings',
     loadComponent: () =>
       import('./pages/my-bookings/my-bookings')
-        .then(c => c.MyBookings)
+        .then(c => c.MyBookingsComponent)
   },
+{
+  path: 'user/bookings/:id',
+  component: BookingDetailsComponent
+},
    {
     path: 'register',
     loadComponent: () =>

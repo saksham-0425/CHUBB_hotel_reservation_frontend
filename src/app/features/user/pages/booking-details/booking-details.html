@@ -1,14 +1,20 @@
-<h2>Booking Confirmed!</h2>
+<h2>Booking Details</h2>
+
+<!-- Loading state -->
 <p *ngIf="loading">Loading booking details...</p>
 
-<p *ngIf="errorMessage" style="color:red">
+<!-- Error state -->
+<p *ngIf="!loading && errorMessage" style="color:red">
   {{ errorMessage }}
 </p>
+
+<!-- Booking details -->
 <div *ngIf="!loading && booking">
 
   <p><b>Booking Reference:</b> {{ booking.bookingReference }}</p>
   <p><b>Status:</b> {{ booking.status }}</p>
 
+  <!-- Status messages -->
   <p *ngIf="booking.status === 'BOOKED'">
     Awaiting confirmation from hotel manager.
   </p>
@@ -35,5 +41,15 @@
   <hr />
 
   <p><b>Total Amount:</b> ₹{{ booking.totalAmount }}</p>
+  <button
+  *ngIf="booking.status === 'CONFIRMED' && !paymentDone"
+  (click)="payBooking()">
+  Pay Now
+</button>
+
+<p *ngIf="paymentDone" style="color:green">
+  Payment completed successfully.
+</p>
+
 
 </div>

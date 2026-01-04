@@ -26,4 +26,18 @@ export class BookingService {
       `${this.BASE_URL}/${id}`
     );
   }
+
+  getMyBookings(): Observable<BookingResponse[]> {
+  return this.http.get<BookingResponse[]>(
+    `${this.BASE_URL}/my`
+  );
+}
+
+payForBooking(bookingId: number) {
+  return this.http.post(
+    `${this.BASE_URL}/${bookingId}/pay`,
+    {}  
+  );
+}
+
 }

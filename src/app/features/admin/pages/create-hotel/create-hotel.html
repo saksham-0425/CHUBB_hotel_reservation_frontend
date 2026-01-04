@@ -1,0 +1,28 @@
+<h3>Create Hotel</h3>
+
+<input placeholder="Hotel Name" [(ngModel)]="name" />
+<input placeholder="City" [(ngModel)]="city" />
+<input placeholder="Address" [(ngModel)]="address" />
+<input placeholder="Description" [(ngModel)]="description" />
+<input placeholder="Manager Email" [(ngModel)]="managerEmail" />
+
+<input
+  placeholder="Amenities (comma separated)"
+  [(ngModel)]="amenitiesText"
+/>
+
+<hr />
+
+<h4>Room Categories</h4>
+
+<div *ngFor="let c of roomCategories; let i = index">
+  <input placeholder="Category" [(ngModel)]="c.category" />
+  <input type="number" placeholder="Total Rooms" [(ngModel)]="c.totalRooms" />
+  <input type="number" placeholder="Capacity" [(ngModel)]="c.capacity" />
+  <input type="number" placeholder="Base Price" [(ngModel)]="c.basePrice" />
+</div>
+
+<button (click)="addCategory()">+ Add Category</button>
+
+<br /><br />
+<button (click)="createHotel()">Create Hotel</button>

@@ -1,15 +1,33 @@
 import { Routes } from '@angular/router';
-import { authGuard } from '../../core/guards/auth-guard';
-import { roleGuard } from '../../core/guards/role-guard';
 
-
-export const ADMIN_ROUTES: Routes = [
+export const adminRoutes: Routes = [
   {
     path: '',
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'ADMIN' },
-    loadComponent: () =>
-      import('./pages/dashboard/dashboard')
-        .then(c => c.Dashboard)
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./pages/dashboard/dashboard')
+            .then(m => m.DashboardComponent)
+      },
+      {
+        path: 'hotels',
+        loadComponent: () =>
+          import('./pages/hotels/hotels')
+            .then(m => m.HotelsComponent)
+      },
+      {
+        path: 'hotels/:id',
+        loadComponent: () =>
+          import('./pages/hotel-details/hotel-details')
+            .then(m => m.HotelDetailsComponent)
+      },
+      {
+  path: 'hotels/:id/bookings',
+  loadComponent: () =>
+    import('./pages/hotel-bookings/hotel-bookings')
+      .then(m => m.HotelBookingsComponent)
+}
+    ]
   }
 ];
