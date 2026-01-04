@@ -1,1 +1,41 @@
-<p>receptionist-availability works!</p>
+<h2>Hotel Rooms</h2>
+
+<p *ngIf="loading">Loading rooms...</p>
+<p *ngIf="!loading && errorMessage" style="color:red">
+  {{ errorMessage }}
+</p>
+
+<table *ngIf="!loading && rooms.length > 0">
+  <thead>
+    <tr>
+      <th>Room No</th>
+      <th>Category</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let room of rooms">
+      <td>{{ room.roomNumber }}</td>
+      <td>{{ room.category }}</td>
+      <td>{{ room.status }}</td>
+      <td>
+        <button
+          *ngIf="room.status === 'CHECKED_OUT'"
+          (click)="makeAvailable(room.roomId)"
+        >
+          Make Available
+        </button>
+
+        <span *ngIf="room.status !== 'CHECKED_OUT'">
+          —
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="!loading && rooms.length === 0">
+  No rooms found.
+</p>

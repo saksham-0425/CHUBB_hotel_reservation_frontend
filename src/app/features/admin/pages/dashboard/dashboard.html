@@ -1,15 +1,73 @@
 <h2>Admin Dashboard</h2>
+
 <p *ngIf="loading">Loading dashboard...</p>
 
-<div *ngIf="!loading" class="grid">
+<div *ngIf="!loading">
 
-  <div class="card">
-    <h3>Hotels</h3>
-    <p>Manage hotels and inventory</p>
-    <button (click)="goToHotels()">
-      View Hotels
-    </button>
+  <!-- Filters -->
+  <div class="filter-bar">
+    <label>Hotel:</label>
+    <select [(ngModel)]="selectedHotelId" (change)="onHotelChange()">
+      <option *ngFor="let h of hotels" [value]="h.id">
+        {{ h.name }}
+      </option>
+    </select>
   </div>
 
+  <h3 class="section-title">Revenue Insights</h3>
+
+  <div class="grid two-col">
+
+    <div class="card chart-card">
+      <apx-chart
+        *ngIf="revenueByHotelChart"
+        [series]="revenueByHotelChart.series"
+        [chart]="revenueByHotelChart.chart"
+        [xaxis]="revenueByHotelChart.xaxis"
+        [title]="revenueByHotelChart.title">
+      </apx-chart>
+    </div>
+
+    <div class="card stat-card">
+      <h4>Avg Revenue per Booking</h4>
+      <p class="hint">Completed bookings</p>
+      <h1>₹ {{ avgRevenue | number }}</h1>
+    </div>
+
+  </div>
+
+
+  <h3 class="section-title">Booking Insights</h3>
+
+  <div class="grid two-col">
+
+    <div class="card chart-card">
+      <apx-chart
+        *ngIf="bookingStatusChart"
+        [series]="bookingStatusChart.series"
+        [chart]="bookingStatusChart.chart"
+        [labels]="bookingStatusChart.labels"
+        [title]="bookingStatusChart.title">
+      </apx-chart>
+    </div>
+
+    <div class="card chart-card">
+      <apx-chart
+        *ngIf="monthlyBookingsChart"
+        [series]="monthlyBookingsChart.series"
+        [chart]="monthlyBookingsChart.chart"
+        [xaxis]="monthlyBookingsChart.xaxis"
+        [title]="monthlyBookingsChart.title">
+      </apx-chart>
+    </div>
+
+  </div>
+
+
+  <div class="card action-card">
+    <h3>Hotel Management</h3>
+    <p>Manage hotels, rooms and inventory</p>
+    <button (click)="goToHotels()">View Hotels</button>
+  </div>
 
 </div>

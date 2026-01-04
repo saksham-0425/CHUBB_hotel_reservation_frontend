@@ -1,1 +1,31 @@
-<p>receptionist-booking works!</p>
+<h2>Booking Lookup</h2>
+
+<input
+  placeholder="Enter booking reference"
+  [(ngModel)]="reference"
+/>
+
+<button (click)="searchBooking()">Search</button>
+
+<p *ngIf="loading">Loading...</p>
+<p *ngIf="errorMessage" style="color:red">{{ errorMessage }}</p>
+
+<div *ngIf="booking">
+  <p><b>Status:</b> {{ booking.status }}</p>
+  <p><b>Guest:</b> {{ booking.guestEmail }}</p>
+  <p><b>Room:</b> {{ booking.roomNumber }}</p>
+
+  <button
+    *ngIf="booking.status === 'CONFIRMED'"
+    (click)="checkIn()"
+  >
+    Check-in
+  </button>
+
+  <button
+    *ngIf="booking.status === 'CHECKED_IN'"
+    (click)="checkOut()"
+  >
+    Check-out
+  </button>
+</div>

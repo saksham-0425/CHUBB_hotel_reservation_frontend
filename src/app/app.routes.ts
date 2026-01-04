@@ -26,6 +26,12 @@ export const appRoutes: Routes = [
         .then(r => r.managerRoutes)
   },
   {
+    path: 'receptionist',
+    loadChildren: () =>
+      import('./features/receptionist/receptionist.routes')
+        .then(r => r.RECEPTIONIST_ROUTES)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

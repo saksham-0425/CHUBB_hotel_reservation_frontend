@@ -26,8 +26,24 @@ export class ManagerReceptionistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+  this.loading = true;
 
-  }
+  this.managerService.getManagerHotel().subscribe({
+    next: hotel => {
+      localStorage.setItem(
+        'managerHotelId',
+        hotel.id.toString()
+      );
+      this.loading = false;
+      this.cdr.detectChanges();
+    },
+    error: () => {
+      this.loading = false;
+      this.errorMessage = 'Hotel not found for manager';
+      this.cdr.detectChanges();
+    }
+  });
+}
 
   createReceptionist(): void {
     this.loading = true;

@@ -15,4 +15,8 @@ export class HotelService {
       { params: { city } }
     );
   }
+
+  getAllHotels() {
+  return this.http.get<any[]>('http://localhost:8765/hotels');
+}
 }
