@@ -25,4 +25,29 @@ getCategoriesByHotel(hotelId: number): Observable<RoomCategory[]> {
     `${this.baseUrl}/${hotelId}/categories`
   );
 }
+createRoomsBulk(
+  hotelId: number,
+  payload: { categoryId: number; start: string; end: string }
+) {
+  return this.http.post(
+    `${this.baseUrl}/${hotelId}/rooms/bulk`,
+    payload
+  );
+}
+
+addCategory(
+  hotelId: number,
+  payload: {
+    category: string;
+    totalRooms: number;
+    capacity: number;
+    basePrice: number;
+  }
+) {
+  return this.http.post(
+    `${this.baseUrl}/${hotelId}/categories`,
+    payload
+  );
+}
+
 }

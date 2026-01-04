@@ -1,0 +1,57 @@
+<h2>Room Categories</h2>
+
+<p *ngIf="loading">Loading categories...</p>
+<p *ngIf="!loading && errorMessage" style="color:red">
+  {{ errorMessage }}
+</p>
+
+<table *ngIf="!loading && categories.length > 0">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Total Rooms</th>
+      <th>Capacity</th>
+      <th>Base Price</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let c of categories">
+
+      <!-- VIEW MODE -->
+      <ng-container *ngIf="editingCategoryId !== c.id">
+        <td>{{ c.category }}</td>
+        <td>{{ c.totalRooms }}</td>
+        <td>{{ c.capacity }}</td>
+        <td>₹{{ c.basePrice }}</td>
+        <td>
+          <button (click)="editCategory(c)">Edit</button>
+        </td>
+      </ng-container>
+
+      <!-- EDIT MODE -->
+      <ng-container *ngIf="editingCategoryId === c.id">
+        <td>{{ c.category }}</td>
+        <td>
+          <input type="number" [(ngModel)]="editModel.totalRooms" />
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="editModel.capacity" />
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="editModel.basePrice" />
+        </td>
+        <td>
+          <button (click)="saveCategory()">Save</button>
+          <button (click)="cancelEdit()">Cancel</button>
+        </td>
+      </ng-container>
+
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="!loading && categories.length === 0">
+  No categories found.
+</p>

@@ -1,11 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.css',
+  styleUrls: ['./dashboard.css']
 })
-export class Dashboard {
+export class DashboardComponent {
 
+  constructor(
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  goToBookings(): void {
+    this.router.navigate(['/manager/bookings']);
+    this.cdr.detectChanges();
+  }
+
+  goToCategories(): void {
+    this.router.navigate(['/manager/categories']);
+    this.cdr.detectChanges();
+  }
+
+  goToRooms(): void {
+    this.router.navigate(['/manager/rooms']);
+    this.cdr.detectChanges();
+  }
+
+  goToReceptionists(): void {
+  this.router.navigate(['/manager/receptionists']);
+  this.cdr.detectChanges();
+}
 }

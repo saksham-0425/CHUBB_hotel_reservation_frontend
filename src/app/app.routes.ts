@@ -20,6 +20,12 @@ export const appRoutes: Routes = [
         .then(r => r.adminRoutes)
   },
   {
+    path: 'manager',
+    loadChildren: () =>
+      import('./features/manager/manager.routes')
+        .then(r => r.managerRoutes)
+  },
+  {
     path: '**',
     redirectTo: ''
   }
