@@ -1,73 +1,82 @@
-<h2>Admin Dashboard</h2>
-
-<p *ngIf="loading">Loading dashboard...</p>
-
-<div *ngIf="!loading">
-
-  <!-- Filters -->
-  <div class="filter-bar">
-    <label>Hotel:</label>
-    <select [(ngModel)]="selectedHotelId" (change)="onHotelChange()">
-      <option *ngFor="let h of hotels" [value]="h.id">
-        {{ h.name }}
-      </option>
-    </select>
+<div class="dashboard-hero">
+  <div class="hero-content text-center">
+    <h1>Admin Dashboard</h1>
+    <p>Overview of hotel performance</p>
   </div>
+</div>
 
-  <h3 class="section-title">Revenue Insights</h3>
+<div class="container dashboard-content">
 
-  <div class="grid two-col">
+  <p *ngIf="loading">Loading dashboard...</p>
 
-    <div class="card chart-card">
-      <apx-chart
-        *ngIf="revenueByHotelChart"
-        [series]="revenueByHotelChart.series"
-        [chart]="revenueByHotelChart.chart"
-        [xaxis]="revenueByHotelChart.xaxis"
-        [title]="revenueByHotelChart.title">
-      </apx-chart>
+  <div *ngIf="!loading" class="animate-fade-in">
+
+    <!-- Filter Bar -->
+    <div class="flex items-center justify-between mb-lg">
+      <div class="flex items-center gap-sm">
+        <label>Selected Hotel:</label>
+        <select [(ngModel)]="selectedHotelId" (change)="onHotelChange()" class="hotel-select">
+          <option *ngFor="let h of hotels" [value]="h.id">{{ h.name }}</option>
+        </select>
+      </div>
+      <app-button variant="outline" (click)="goToHotels()">Manage Hotels</app-button>
     </div>
 
-    <div class="card stat-card">
-      <h4>Avg Revenue per Booking</h4>
-      <p class="hint">Completed bookings</p>
-      <h1>₹ {{ avgRevenue | number }}</h1>
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-3 gap-md mb-lg">
+      <!-- Avg Revenue -->
+      <app-card>
+        <div class="stat-content">
+          <span class="stat-label">Avg Revenue / Booking</span>
+          <h2 class="stat-value">₹ {{ avgRevenue | number:'1.0-0' }}</h2>
+          <span class="stat-trend positive">+12% vs last month</span>
+        </div>
+      </app-card>
+
+      <!-- Placeholder Stat 1 -->
+      <app-card>
+        <div class="stat-content">
+          <span class="stat-label">Total Bookings</span>
+          <h2 class="stat-value">1,248</h2>
+          <span class="stat-trend positive">+5% vs last month</span>
+        </div>
+      </app-card>
+
+      <!-- Placeholder Stat 2 -->
+      <app-card>
+        <div class="stat-content">
+          <span class="stat-label">Occupancy Rate</span>
+          <h2 class="stat-value">84%</h2>
+          <span class="stat-trend negative">-2% vs last month</span>
+        </div>
+      </app-card>
     </div>
 
-  </div>
+    <!-- Charts Grid -->
+    <div class="grid grid-cols-2 gap-lg">
 
+      <app-card>
+        <h3>Revenue Trends</h3>
+        <apx-chart *ngIf="revenueByHotelChart" [series]="revenueByHotelChart.series" [chart]="revenueByHotelChart.chart"
+          [xaxis]="revenueByHotelChart.xaxis" [title]="revenueByHotelChart.title">
+        </apx-chart>
+      </app-card>
 
-  <h3 class="section-title">Booking Insights</h3>
+      <app-card>
+        <h3>Booking Distribution</h3>
+        <apx-chart *ngIf="bookingStatusChart" [series]="bookingStatusChart.series" [chart]="bookingStatusChart.chart"
+          [labels]="bookingStatusChart.labels" [title]="bookingStatusChart.title">
+        </apx-chart>
+      </app-card>
 
-  <div class="grid two-col">
+      <app-card class="col-span-2">
+        <h3>Monthly Volume</h3>
+        <apx-chart *ngIf="monthlyBookingsChart" [series]="monthlyBookingsChart.series"
+          [chart]="monthlyBookingsChart.chart" [xaxis]="monthlyBookingsChart.xaxis"
+          [title]="monthlyBookingsChart.title">
+        </apx-chart>
+      </app-card>
 
-    <div class="card chart-card">
-      <apx-chart
-        *ngIf="bookingStatusChart"
-        [series]="bookingStatusChart.series"
-        [chart]="bookingStatusChart.chart"
-        [labels]="bookingStatusChart.labels"
-        [title]="bookingStatusChart.title">
-      </apx-chart>
     </div>
-
-    <div class="card chart-card">
-      <apx-chart
-        *ngIf="monthlyBookingsChart"
-        [series]="monthlyBookingsChart.series"
-        [chart]="monthlyBookingsChart.chart"
-        [xaxis]="monthlyBookingsChart.xaxis"
-        [title]="monthlyBookingsChart.title">
-      </apx-chart>
-    </div>
-
   </div>
-
-`
-  <div class="card action-card">
-    <h3>Hotel Management</h3>
-    <p>Manage hotels, rooms and inventory</p>
-    <button (click)="goToHotels()">View Hotels</button>
-  </div>
-
 </div>

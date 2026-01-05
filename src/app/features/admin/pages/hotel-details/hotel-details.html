@@ -21,7 +21,7 @@
 
   <p><b>Manager:</b> {{ hotel.managerEmail }}</p>
 
-  <p *ngIf="hotel.amenities?.length">
+  <p *ngIf="hotel.amenities.length">
     <b>Amenities:</b>
     {{ hotel.amenities.join(', ') }}
   </p>
@@ -31,104 +31,80 @@
   </button>
 
   <hr />
-  
+
   <button (click)="openAddCategory()">
-  + Add Category
-</button>
-
-<div *ngIf="showAddCategory" style="margin-top:16px">
-  <h4>Add Room Category</h4>
-
-  <input
-    placeholder="Category Name (e.g. SUPER DELUXE)"
-    [(ngModel)]="newCategory.category"
-  />
-
-  <input
-    type="number"
-    placeholder="Total Rooms"
-    [(ngModel)]="newCategory.totalRooms"
-  />
-
-  <input
-    type="number"
-    placeholder="Capacity"
-    [(ngModel)]="newCategory.capacity"
-  />
-
-  <input
-    type="number"
-    placeholder="Base Price"
-    [(ngModel)]="newCategory.basePrice"
-  />
-
-  <br /><br />
-
-  <button (click)="addCategory()" [disabled]="addingCategory">
-    Add
+    + Add Category
   </button>
 
-  <button (click)="cancelAddCategory()">
-    Cancel
-  </button>
-</div>
+  <div *ngIf="showAddCategory" style="margin-top:16px">
+    <h4>Add Room Category</h4>
 
-<hr />
+    <input placeholder="Category Name (e.g. SUPER DELUXE)" [(ngModel)]="newCategory.category" />
+
+    <input type="number" placeholder="Total Rooms" [(ngModel)]="newCategory.totalRooms" />
+
+    <input type="number" placeholder="Capacity" [(ngModel)]="newCategory.capacity" />
+
+    <input type="number" placeholder="Base Price" [(ngModel)]="newCategory.basePrice" />
+
+    <br /><br />
+
+    <button (click)="addCategory()" [disabled]="addingCategory">
+      Add
+    </button>
+
+    <button (click)="cancelAddCategory()">
+      Cancel
+    </button>
+  </div>
+
+  <hr />
 
   <!-- Categories -->
   <h3>Room Categories</h3>
 
   <table *ngIf="categories.length > 0">
-  <thead>
-    <tr>
-      <th>Category</th>
-      <th>Total Rooms</th>
-      <th>Capacity</th>
-      <th>Base Price</th>
-      <th>Action</th>
-    </tr>
-  </thead>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Total Rooms</th>
+        <th>Capacity</th>
+        <th>Base Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <tr *ngFor="let c of categories">
-      <td>{{ c.category }}</td>
-      <td>{{ c.totalRooms }}</td>
-      <td>{{ c.capacity }}</td>
-      <td>₹{{ c.basePrice }}</td>
-      <td>
-        <button
-  *ngIf="c.id !== undefined"
-  (click)="openCreateRooms(c.id)"
->
-  Create Rooms
-</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<div *ngIf="selectedCategoryId" style="margin-top:20px">
-  <h4>Create Physical Rooms</h4>
+    <tbody>
+      <tr *ngFor="let c of categories">
+        <td>{{ c.category }}</td>
+        <td>{{ c.totalRooms }}</td>
+        <td>{{ c.capacity }}</td>
+        <td>₹{{ c.basePrice }}</td>
+        <td>
+          <button *ngIf="c.id !== undefined" (click)="openCreateRooms(c.id)">
+            Create Rooms
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="selectedCategoryId" style="margin-top:20px">
+    <h4>Create Physical Rooms</h4>
 
-  <input
-    placeholder="Start Room No (e.g. 101)"
-    [(ngModel)]="roomStart"
-  />
+    <input placeholder="Start Room No (e.g. 101)" [(ngModel)]="roomStart" />
 
-  <input
-    placeholder="End Room No (e.g. 110)"
-    [(ngModel)]="roomEnd"
-  />
+    <input placeholder="End Room No (e.g. 110)" [(ngModel)]="roomEnd" />
 
-  <br /><br />
+    <br /><br />
 
-  <button (click)="createRooms()" [disabled]="creatingRooms">
-    Create
-  </button>
+    <button (click)="createRooms()" [disabled]="creatingRooms">
+      Create
+    </button>
 
-  <button (click)="cancelCreateRooms()">
-    Cancel
-  </button>
-</div>
+    <button (click)="cancelCreateRooms()">
+      Cancel
+    </button>
+  </div>
 
 
   <!-- Empty categories -->

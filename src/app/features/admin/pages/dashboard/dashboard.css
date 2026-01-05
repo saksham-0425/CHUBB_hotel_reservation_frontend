@@ -1,32 +1,107 @@
-.section-title {
-  margin: 24px 0 12px;
+.dashboard-hero {
+  background-color: var(--color-surface);
+  padding: 48px 0 80px;
+  position: relative;
+  margin-bottom: -40px;
+  /* Pull content up over search bar if needed, or search bar overlaps */
 }
 
-.grid {
-  display: grid;
-  gap: 16px;
+.hero-content {
+  margin-bottom: 32px;
 }
 
-.two-col {
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+.dashboard-content {
+  padding-bottom: 64px;
 }
 
-.card {
-  padding: 16px;
-  border-radius: 8px;
-  background: #fff;
+.mb-lg {
+  margin-bottom: var(--spacing-lg);
 }
 
-.chart-card {
-  min-height: 340px;
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.stat-card h1 {
-  font-size: 2.2rem;
-  margin-top: 8px;
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.hint {
-  color: #777;
-  font-size: 0.85rem;
+.col-span-2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 900px) {
+
+  .grid-cols-3,
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .col-span-2 {
+    grid-column: auto;
+  }
+}
+
+.hotel-select {
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family-base);
+  font-size: 1rem;
+  min-width: 200px;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 300;
+  /* Thin font for elegance */
+  margin: 0 0 8px;
+  color: var(--color-primary);
+}
+
+.stat-trend {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.stat-trend.positive {
+  color: green;
+}
+
+.stat-trend.negative {
+  color: red;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-bottom: 24px;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

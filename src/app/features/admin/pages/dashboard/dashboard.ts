@@ -14,10 +14,20 @@ import { FormsModule } from '@angular/forms';
 import { ReportService } from '../../../../core/services/report';
 import { HotelService } from '../../../../core/services/hotel';
 
+import { CardComponent } from '../../../../shared/ui/card/card.component';
+import { ButtonComponent } from '../../../../shared/ui/button/button.component';
+
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, NgApexchartsModule, FormsModule],
+  imports: [
+    CommonModule,
+    NgApexchartsModule,
+    FormsModule,
+    CardComponent,
+    CardComponent,
+    ButtonComponent
+  ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css']
 })
@@ -60,12 +70,12 @@ export class DashboardComponent implements OnInit {
     private hotelService: HotelService,
     private router: Router,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initializeDates();
     this.loadHotels();
-    this.loadRevenueByHotel(); 
+    this.loadRevenueByHotel();
   }
 
   initializeDates(): void {

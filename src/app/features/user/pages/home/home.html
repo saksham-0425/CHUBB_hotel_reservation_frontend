@@ -1,1 +1,19 @@
-<p>home works!</p>
+<div class="home-hero">
+    <div class="hero-image-overlay"></div>
+    <div class="hero-content">
+        <div class="container relative z-10">
+            <div class="hero-text mb-xl">
+                <h1 class="hero-title">Where can we take you?</h1>
+            </div>
+
+            <app-search-bar (search)="handleSearch($event)"></app-search-bar>
+        </div>
+    </div>
+</div>
+
+<div class="container section-promos">
+    <h2 class="text-center mb-lg">Seasonal Savings Await</h2>
+    <p class="text-center" style="max-width: 600px; margin: 0 auto;">
+        Lock in our best packages and deals of the season.
+    </p>
+</div>

@@ -1,28 +1,61 @@
-<h2>Search Hotels</h2>
+<div class="search-header">
+  <div class="container">
+    <app-search-bar (search)="handleSearch($event)"></app-search-bar>
+  </div>
+</div>
 
-<form (ngSubmit)="searchHotels()">
-  <label>City</label>
-  <input type="text" [(ngModel)]="city" name="city" />
+<div class="container search-results">
 
-  <button type="submit">Search</button>
-</form>
-
-
-<p *ngIf="error" style="color:red">{{ error }}</p>
-
-<div *ngIf="hotels.length > 0">
-  <h3>Available Hotels</h3>
-
-  <div *ngFor="let hotel of hotels" style="border:1px solid #ccc; margin:10px; padding:10px">
-    <h4>{{ hotel.name }}</h4>
-    <p>{{ hotel.address }}</p>
-
-    
-    <button type="button" (click)="goToAvailability(hotel.id)">
-  Check Availability
-</button>
+  <div *ngIf="loading" class="text-center">
+    <p>Searching for best hotels in {{ city }}...</p>
   </div>
 
- 
+  <div *ngIf="error" class="text-center">
+    <p class="error-text">{{ error }}</p>
+  </div>
+
+  <div *ngIf="!loading && !error && hotels.length === 0 && city" class="text-center">
+    <p>No hotels found in {{ city }}. Try another destination.</p>
+  </div>
+
+  <div class="grid gap-lg">
+    <app-card *ngFor="let hotel of hotels" class="hotel-card">
+      <div class="flex items-center gap-lg">
+        <!-- Placeholder Image -->
+        <div class="hotel-image">
+          <img
+            src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80"
+            alt="Hotel">
+        </div>
+
+        <div class="hotel-info flex-grow">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3>{{ hotel.name }}</h3>
+              <p class="hotel-location">{{ hotel.address }}</p>
+            </div>
+            <div class="rating-badge">
+              4.5 ★
+            </div>
+          </div>
+
+          <p class="hotel-desc">{{ hotel.description }}</p>
+
+          <div class="hotel-amenities">
+            <span *ngFor="let am of hotel.amenities" class="amenity-pill">{{ am }}</span>
+          </div>
+
+          <div class="flex justify-between items-center mt-md">
+            <div>
+              <span class="price-label">From</span>
+              <span class="price-value">₹ {{ hotel.roomCategories?.[0]?.basePrice || 'N/A' }}</span>
+              <span class="price-unit">/ night</span>
+            </div>
+            <app-button (click)="goToAvailability(hotel.id)">View Rates</app-button>
+          </div>
+        </div>
+      </div>
+    </app-card>
+  </div>
 
 </div>
