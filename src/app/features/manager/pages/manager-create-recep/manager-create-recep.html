@@ -1,58 +1,56 @@
-<h2>Manage Receptionists</h2>
-
-<p *ngIf="loading">Processing request...</p>
-
-<div class="receptionist-container" *ngIf="!loading">
-
-  <!-- Create Receptionist -->
-  <div class="receptionist-card">
-    <h3>Create Receptionist</h3>
-
-    <label>Email</label>
-    <input
-      type="email"
-      placeholder="receptionist@hotel.com"
-      [(ngModel)]="email"
-    />
-
-    <label>Password</label>
-    <input
-      type="password"
-      placeholder="Enter temporary password"
-      [(ngModel)]="password"
-    />
-
-    <button
-      class="primary-btn"
-      (click)="createReceptionist()"
-      [disabled]="!email || !password"
-    >
-      Create Receptionist
-    </button>
+<div class="manager-receptionist-page">
+  <div class="page-header">
+    <h2>Manage Receptionists</h2>
+    <p class="subtitle">Create and assign reception staff to your hotel</p>
   </div>
-
-  <!-- Assign Receptionist -->
-  <div class="receptionist-card" *ngIf="created">
-    <h3>Assign to Hotel</h3>
-
-    <p>
-      Assign <b>{{ email }}</b> to your hotel
-    </p>
-
-    <button
-      class="secondary-btn"
-      (click)="assignReceptionist()"
-    >
-      Assign Receptionist
-    </button>
+  <p *ngIf="loading" class="loading-text">
+    Processing request...
+  </p>
+  <div *ngIf="successMessage" class="success-banner">
+    {{ successMessage }}
   </div>
-
+  <div *ngIf="errorMessage" class="error-banner">
+    {{ errorMessage }}
+  </div>
+  <div class="receptionist-container" *ngIf="!loading">
+    <div class="card">
+      <h3>Create Receptionist</h3>
+      <div class="form-group">
+        <label>Email</label>
+        <input
+          type="email"
+          placeholder="receptionist@hotel.com"
+          [(ngModel)]="email"
+        />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          type="password"
+          placeholder="Temporary password"
+          [(ngModel)]="password"
+        />
+      </div>
+      <button
+        class="btn-primary"
+        (click)="createReceptionist()"
+        [disabled]="!email || !password || loading"
+      >
+        Create Receptionist
+      </button>
+    </div>
+    <div class="card" *ngIf="created">
+      <h3>Assign to Hotel</h3>
+      <p class="assign-text">
+        Assign <b>{{ email }}</b> to your hotel
+      </p>
+      <button
+        class="btn-outline"
+        (click)="assignReceptionist()"
+        [disabled]="loading"
+      >
+        Assign Receptionist
+      </button>
+    </div>
+  </div>
 </div>
-
-<p class="success" *ngIf="successMessage">
-  {{ successMessage }}
-</p>
-
-<p class="error" *ngIf="errorMessage">
-  {{ errorMessage }}
-</p>

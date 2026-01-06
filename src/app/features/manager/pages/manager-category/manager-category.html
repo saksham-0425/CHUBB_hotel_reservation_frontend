@@ -1,57 +1,84 @@
-<h2>Room Categories</h2>
-
-<p *ngIf="loading">Loading categories...</p>
-<p *ngIf="!loading && errorMessage" style="color:red">
+<div class="manager-categories-page">
+  <div class="page-header">
+    <h2>Room Categories</h2>
+    <p class="subtitle">Manage room pricing and inventory</p>
+  </div>
+  <p *ngIf="loading" class="loading-text">
+  Loading categories...
+</p>
+<div *ngIf="successMessage" class="success-banner">
+  {{ successMessage }}
+</div>
+<div *ngIf="errorMessage" class="error-banner">
   {{ errorMessage }}
-</p>
-
-<table *ngIf="!loading && categories.length > 0">
-  <thead>
-    <tr>
-      <th>Category</th>
-      <th>Total Rooms</th>
-      <th>Capacity</th>
-      <th>Base Price</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let c of categories">
-
-      <!-- VIEW MODE -->
-      <ng-container *ngIf="editingCategoryId !== c.id">
-        <td>{{ c.category }}</td>
-        <td>{{ c.totalRooms }}</td>
-        <td>{{ c.capacity }}</td>
-        <td>₹{{ c.basePrice }}</td>
-        <td>
-          <button (click)="editCategory(c)">Edit</button>
-        </td>
-      </ng-container>
-
-      <!-- EDIT MODE -->
-      <ng-container *ngIf="editingCategoryId === c.id">
-        <td>{{ c.category }}</td>
-        <td>
-          <input type="number" [(ngModel)]="editModel.totalRooms" />
-        </td>
-        <td>
-          <input type="number" [(ngModel)]="editModel.capacity" />
-        </td>
-        <td>
-          <input type="number" [(ngModel)]="editModel.basePrice" />
-        </td>
-        <td>
-          <button (click)="saveCategory()">Save</button>
-          <button (click)="cancelEdit()">Cancel</button>
-        </td>
-      </ng-container>
-
-    </tr>
-  </tbody>
-</table>
-
-<p *ngIf="!loading && categories.length === 0">
-  No categories found.
-</p>
+</div>
+  <div class="table-card" *ngIf="!loading && categories.length > 0">
+    <table class="hotel-table">
+      <thead>
+        <tr>
+          <th class="col-category">Category</th>
+          <th class="col-center col-small">Total Rooms</th>
+          <th class="col-center col-small">Capacity</th>
+          <th class="col-right col-price">Base Price</th>
+          <th class="col-center col-action">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of categories">
+          <td class="col-category category">
+            {{ c.category }}
+          </td>
+          <td class="col-center col-small">
+            <span *ngIf="editingCategoryId !== c.id">
+              {{ c.totalRooms }}
+            </span>
+            <input
+              *ngIf="editingCategoryId === c.id"
+              type="number"
+              [(ngModel)]="editModel.totalRooms"
+            />
+          </td>
+          <td class="col-center col-small">
+            <span *ngIf="editingCategoryId !== c.id">
+              {{ c.capacity }}
+            </span>
+            <input
+              *ngIf="editingCategoryId === c.id"
+              type="number"
+              [(ngModel)]="editModel.capacity"
+            />
+          </td>
+          <td class="col-right col-price amount">
+            <span *ngIf="editingCategoryId !== c.id">
+              ₹{{ c.basePrice }}
+            </span>
+            <input
+              *ngIf="editingCategoryId === c.id"
+              type="number"
+              [(ngModel)]="editModel.basePrice"
+            />
+          </td>
+          <td class="col-center col-action">
+            <button
+              *ngIf="editingCategoryId !== c.id"
+              class="btn-outline"
+              (click)="editCategory(c)">
+              Edit
+            </button>
+            <div *ngIf="editingCategoryId === c.id" class="edit-actions">
+              <button class="btn-primary small" (click)="saveCategory()">
+                Save
+              </button>
+              <button class="btn-outline small" (click)="cancelEdit()">
+                Cancel
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p *ngIf="!loading && categories.length === 0" class="empty-text">
+    No categories found.
+  </p>
+</div>

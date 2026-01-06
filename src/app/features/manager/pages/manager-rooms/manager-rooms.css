@@ -1,13 +1,200 @@
-table {
+/* PAGE */
+.manager-rooms-page {
+  min-height: 100vh;
+  padding: 96px 8% 60px;
+  background: linear-gradient(135deg, #f9f7f3, #f1ede4);
+}
+
+/* HEADER */
+.page-header {
+  margin-bottom: 28px;
+}
+
+.page-header h2 {
+  font-size: 2.1rem;
+  color: #1e1e2f;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* STATES */
+.loading-text,
+.empty-text {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.success-banner {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.error-banner {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+/* CARD */
+.card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px 26px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.1);
+  margin-bottom: 28px;
+}
+
+.card h3 {
+  font-size: 1.25rem;
+  color: #1e1e2f;
+  margin-bottom: 16px;
+}
+
+/* FORM CONTROLS */
+.card input,
+.card select {
+  width: 220px;
+  padding: 10px 14px;
+  margin-right: 14px;
+  margin-bottom: 12px;
+
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.card select {
+  background: #fff;
+  cursor: pointer;
+}
+
+/* BUTTON */
+.btn-primary {
+  padding: 10px 26px;
+  border-radius: 26px;
+  border: none;
+  background: linear-gradient(135deg, #c59d5f, #b0894f);
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 10px 28px rgba(197, 157, 95, 0.45);
+}
+
+/* TABLE CARD */
+.table-card {
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.1);
+
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* TABLE */
+.hotel-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
-th, td {
-  padding: 8px;
-  border: 1px solid #ddd;
+/* HEADER */
+.hotel-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+
+  background: #f4f1ea;
+  padding: 14px 16px;
+
+  font-size: 1rem;
+  font-weight: 600;
+  color: #444;
+  text-align: left;
 }
 
-th {
-  background-color: #f4f4f4;
+/* CELLS */
+.hotel-table td {
+  padding: 16px;
+  border-top: 1px solid #eee;
+  font-size: 0.95rem;
+  color: #1e1e2f;
+  vertical-align: middle;
+}
+
+/* COLUMN ALIGNMENT */
+.hotel-table th:nth-child(1),
+.hotel-table td:nth-child(1) {
+  width: 25%;
+}
+
+.hotel-table th:nth-child(2),
+.hotel-table td:nth-child(2) {
+  width: 35%;
+}
+
+.hotel-table th:nth-child(3),
+.hotel-table td:nth-child(3) {
+  width: 40%;
+}
+
+/* STATUS BADGES */
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-badge.available {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.occupied {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.status-badge.maintenance {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+/* ROW HOVER */
+.hotel-table tbody tr:hover {
+  background: #faf8f4;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .manager-rooms-page {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .card input,
+  .card select {
+    width: 100%;
+    margin-right: 0;
+  }
 }

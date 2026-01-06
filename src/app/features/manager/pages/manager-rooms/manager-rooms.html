@@ -1,43 +1,65 @@
-<h2>Manage Rooms</h2>
-
-<p *ngIf="loading">Loading rooms...</p>
-<p *ngIf="!loading && errorMessage" style="color:red">{{ errorMessage }}</p>
-
-<!-- CREATE SINGLE ROOM -->
-<h3>Create Room</h3>
-<input [(ngModel)]="roomNumber" placeholder="Room Number" />
-<input [(ngModel)]="categoryId" placeholder="Category ID" type="number" />
-<button (click)="createRoom()">Create</button>
-
-<hr />
-
-<!-- BULK CREATE -->
-<h3>Bulk Create Rooms</h3>
-<input [(ngModel)]="start" placeholder="Start" type="number" />
-<input [(ngModel)]="end" placeholder="End" type="number" />
-<input [(ngModel)]="categoryId" placeholder="Category ID" type="number" />
-<button (click)="bulkCreate()">Bulk Create</button>
-
-<hr />
-
-<!-- ROOMS LIST -->
-<h3>Existing Rooms</h3>
-<table *ngIf="!loading && rooms.length">
-  <tr>
-    <th>Room</th>
-    <th>Category</th>
-    <th>Status</th>
-  </tr>
-
-  <tr *ngFor="let r of rooms">
-    <td>{{ r.roomNumber }}</td>
-    <td>{{ r.category }}</td>
-    <td [style.color]="getStatusColor(r.status)">
-      {{ r.status }}
-    </td>
-  </tr>
-</table>
-
-<p *ngIf="!loading && rooms.length === 0">
-  No rooms found.
-</p>
+<div class="manager-rooms-page">
+  <div class="page-header">
+    <h2>Manage Rooms</h2>
+    <p class="subtitle">Create and manage hotel rooms</p>
+  </div>
+  <p *ngIf="loading" class="loading-text">Loading rooms...</p>
+  <div *ngIf="successMessage" class="success-banner">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="error-banner">
+    {{ errorMessage }}
+  </div>
+  <div class="card">
+    <h3>Create Room</h3>
+    <input [(ngModel)]="roomNumber" placeholder="Room Number" />
+    <select [(ngModel)]="singleCategoryId">
+      <option [ngValue]="null" disabled>Select Category</option>
+      <option *ngFor="let c of categories" [ngValue]="c.id">
+        {{ c.category }}
+      </option>
+    </select>
+    <button class="btn-primary" [disabled]="creatingSingle" (click)="createRoom()">
+      {{ creatingSingle ? 'Creating...' : 'Create Room' }}
+    </button>
+  </div>
+  <div class="card">
+    <h3>Bulk Create Rooms</h3>
+    <input type="number" [(ngModel)]="start" placeholder="Start Room No" />
+    <input type="number" [(ngModel)]="end" placeholder="End Room No" />
+    <select [(ngModel)]="bulkCategoryId">
+      <option [ngValue]="null" disabled>Select Category</option>
+      <option *ngFor="let c of categories" [ngValue]="c.id">
+        {{ c.category }}
+      </option>
+    </select>
+    <button class="btn-primary" [disabled]="creatingBulk" (click)="bulkCreate()">
+      {{ creatingBulk ? 'Creating...' : 'Bulk Create' }}
+    </button>
+  </div>
+  <div class="table-card" *ngIf="!loading && rooms.length > 0">
+    <table class="hotel-table">
+      <thead>
+        <tr>
+          <th>Room</th>
+          <th>Category</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of rooms">
+          <td>{{ r.roomNumber }}</td>
+          <td>{{ r.category }}</td>
+          <td>
+            <span class="status-badge {{ getStatusClass(r.status) }}">
+              {{ r.status }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p *ngIf="!loading && rooms.length === 0" class="empty-text">
+    No rooms found.
+  </p>
+</div>

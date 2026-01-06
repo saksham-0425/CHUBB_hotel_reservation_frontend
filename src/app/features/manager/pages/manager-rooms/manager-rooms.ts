@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RoomService } from '../../services/room';
 import { ManagerService } from '../../services/manager';
+import { CategoryService } from '../../services/category';
 
 @Component({
   selector: 'app-manager-rooms',
@@ -14,18 +15,31 @@ import { ManagerService } from '../../services/manager';
 export class ManagerRoomsComponent implements OnInit {
 
   rooms: any[] = [];
+  categories: any[] = [];
+
   loading = true;
   errorMessage = '';
+  successMessage = '';
+
   hotelId!: number;
 
   roomNumber = '';
-  categoryId!: number;
+  selectedCategoryId!: number;
+
   start!: number;
   end!: number;
+  singleCategoryId: number | null = null;
+bulkCategoryId: number | null = null;
+creatingSingle = false;
+creatingBulk = false;
+
+
+  creating = false;
 
   constructor(
     private roomService: RoomService,
     private managerService: ManagerService,
+    private categoryService: CategoryService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -34,20 +48,18 @@ export class ManagerRoomsComponent implements OnInit {
 
     if (storedHotelId) {
       this.hotelId = Number(storedHotelId);
-      this.loadRooms();
+      this.loadInitialData();
     } else {
-      this.loadManagerHotelAndRooms();
+      this.loadManagerHotelAndData();
     }
   }
 
-  loadManagerHotelAndRooms(): void {
-    this.loading = true;
-
+  loadManagerHotelAndData(): void {
     this.managerService.getManagerHotel().subscribe({
       next: (hotel) => {
         this.hotelId = hotel.id;
         localStorage.setItem('managerHotelId', hotel.id.toString());
-        this.loadRooms();
+        this.loadInitialData();
       },
       error: () => {
         this.errorMessage = 'Failed to load manager hotel';
@@ -57,10 +69,25 @@ export class ManagerRoomsComponent implements OnInit {
     });
   }
 
-  loadRooms(): void {
+  loadInitialData(): void {
     this.loading = true;
     this.errorMessage = '';
+    this.successMessage = '';
 
+    this.categoryService.getCategories().subscribe({
+      next: (categories) => {
+        this.categories = categories ?? [];
+        this.loadRooms();
+      },
+      error: () => {
+        this.errorMessage = 'Failed to load room categories';
+        this.loading = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  loadRooms(): void {
     this.roomService.getRooms(this.hotelId).subscribe({
       next: (data) => {
         this.rooms = data ?? [];
@@ -76,37 +103,66 @@ export class ManagerRoomsComponent implements OnInit {
   }
 
   createRoom(): void {
-    const payload = {
-      roomNumber: this.roomNumber,
-      categoryId: this.categoryId
-    };
+  if (!this.singleCategoryId || !this.roomNumber) return;
 
-    this.roomService.createRoom(this.hotelId, payload).subscribe(() => {
-      alert('Room created');
+  this.creatingSingle = true;
+  this.successMessage = '';
+  this.errorMessage = '';
+
+  const payload = {
+    roomNumber: this.roomNumber,
+    categoryId: this.singleCategoryId
+  };
+
+  this.roomService.createRoom(this.hotelId, payload).subscribe({
+    next: () => {
+      this.successMessage = 'Room created successfully';
       this.roomNumber = '';
+      this.singleCategoryId = null;
+      this.creatingSingle = false;
       this.loadRooms();
-    });
-  }
-
-  bulkCreate(): void {
-    const payload = {
-      categoryId: this.categoryId,
-      start: this.start,
-      end: this.end
-    };
-
-    this.roomService.bulkCreateRooms(this.hotelId, payload).subscribe(() => {
-      alert('Rooms created');
-      this.loadRooms();
-    });
-  }
-
-  getStatusColor(status: string): string {
-    switch (status) {
-      case 'AVAILABLE': return 'green';
-      case 'OCCUPIED': return 'red';
-      case 'MAINTENANCE': return 'orange';
-      default: return 'black';
+      this.cdr.detectChanges();
+    },
+    error: () => {
+      this.errorMessage = 'Failed to create room';
+      this.creatingSingle = false;
+      this.cdr.detectChanges();
     }
+  });
+}
+
+bulkCreate(): void {
+  if (!this.bulkCategoryId || !this.start || !this.end) return;
+
+  this.creatingBulk = true;
+  this.successMessage = '';
+  this.errorMessage = '';
+
+  const payload = {
+    categoryId: this.bulkCategoryId,
+    start: this.start,
+    end: this.end
+  };
+
+  this.roomService.bulkCreateRooms(this.hotelId, payload).subscribe({
+    next: () => {
+      this.successMessage = 'Rooms created successfully';
+      this.start = undefined!;
+      this.end = undefined!;
+      this.bulkCategoryId = null;
+      this.creatingBulk = false;
+      this.loadRooms();
+      this.cdr.detectChanges();
+    },
+    error: () => {
+      this.errorMessage = 'Failed to create rooms';
+      this.creatingBulk = false;
+      this.cdr.detectChanges();
+    }
+  });
+}
+
+  getStatusClass(status: string): string {
+    return status.toLowerCase();
   }
 }

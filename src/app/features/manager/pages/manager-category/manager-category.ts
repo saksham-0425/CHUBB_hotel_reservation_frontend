@@ -16,10 +16,13 @@ export class ManagerCategoriesComponent implements OnInit {
 
   categories: any[] = [];
   loading = true;
+
   errorMessage = '';
+  successMessage = '';
 
   editingCategoryId: number | null = null;
   editModel: any = {};
+  saving = false;
 
   constructor(
     private categoryService: CategoryService,
@@ -56,6 +59,7 @@ export class ManagerCategoriesComponent implements OnInit {
   loadCategories(): void {
     this.loading = true;
     this.errorMessage = '';
+    this.successMessage = '';
 
     this.categoryService.getCategories().subscribe({
       next: (data) => {
@@ -74,6 +78,8 @@ export class ManagerCategoriesComponent implements OnInit {
   editCategory(category: any): void {
     this.editingCategoryId = category.id;
     this.editModel = { ...category };
+    this.successMessage = '';
+    this.errorMessage = '';
   }
 
   cancelEdit(): void {
@@ -84,16 +90,23 @@ export class ManagerCategoriesComponent implements OnInit {
   saveCategory(): void {
     if (!this.editingCategoryId) return;
 
+    this.saving = true;
+    this.errorMessage = '';
+    this.successMessage = '';
+
     this.categoryService
       .updateCategory(this.editingCategoryId, this.editModel)
       .subscribe({
         next: () => {
-          alert('Category updated');
+          this.successMessage = 'Category updated successfully';
           this.editingCategoryId = null;
+          this.saving = false;
           this.loadCategories();
         },
         error: () => {
-          alert('Failed to update category');
+          this.errorMessage = 'Failed to update category';
+          this.saving = false;
+          this.cdr.detectChanges();
         }
       });
   }
