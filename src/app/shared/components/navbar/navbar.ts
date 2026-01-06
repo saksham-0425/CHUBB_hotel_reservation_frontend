@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -12,10 +13,18 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class Navbar {
 
+  isHome = false;
+
   constructor(
     public authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+    this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe(() => {
+        this.isHome = this.router.url === '/';
+      });
+  }
 
   get role(): string | null {
     return this.authService.getRoleFromToken();

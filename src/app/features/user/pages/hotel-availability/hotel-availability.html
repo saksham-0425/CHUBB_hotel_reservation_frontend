@@ -1,28 +1,55 @@
-<h2>Check Availability</h2>
+<div class="availability-page">
 
-<label>Check-in</label>
-<input type="date" [(ngModel)]="checkIn" />
+  <div class="availability-card">
+    <h2>Check Availability</h2>
 
-<label>Check-out</label>
-<input type="date" [(ngModel)]="checkOut" />
+    <div class="date-row">
+      <div class="form-group">
+        <label>Check-in</label>
+        <input type="date" [(ngModel)]="checkIn" />
+      </div>
 
-<button (click)="searchAvailability()">Search</button>
+      <div class="form-group">
+        <label>Check-out</label>
+        <input type="date" [(ngModel)]="checkOut" />
+      </div>
 
-<p *ngIf="error" style="color:red">{{ error }}</p>
+      <button class="btn-primary" (click)="searchAvailability()">
+        Search
+      </button>
+    </div>
 
-<div *ngIf="availability">
-  <h3>Available Rooms</h3>
-
-  <div *ngFor="let c of availability.categories"
-       style="border:1px solid #ccc; margin:10px; padding:10px">
-
-    <b>{{ c.categoryName }}</b><br />
-    Price: ₹{{ c.pricePerNight }}<br />
-    Available Rooms: {{ c.availableRooms }}<br />
-
-    <button
-  (click)="goToBooking(c.categoryId)">
-  Book Now
-</button>
+    <p class="error" *ngIf="error">{{ error }}</p>
   </div>
+  <div class="results" *ngIf="availability">
+
+    <h3>Available Rooms</h3>
+
+    <div class="room-grid">
+      <div class="room-card"
+           *ngFor="let c of availability.categories">
+
+        <div class="room-header">
+          <h4>{{ c.categoryName }}</h4>
+          <span
+            class="badge"
+            [class.low]="c.availableRooms <= 3">
+            {{ c.availableRooms }} left
+          </span>
+        </div>
+
+        <p class="price">
+          ₹{{ c.pricePerNight }} <span>/ night</span>
+        </p>
+
+        <button
+          class="btn-secondary"
+          (click)="goToBooking(c.categoryId)">
+          Book Now
+        </button>
+      </div>
+    </div>
+
+  </div>
+
 </div>

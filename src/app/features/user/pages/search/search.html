@@ -1,28 +1,37 @@
-<h2>Search Hotels</h2>
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="overlay"></div>
 
-<form (ngSubmit)="searchHotels()">
-  <label>City</label>
-  <input type="text" [(ngModel)]="city" name="city" />
+  <div class="hero-content">
+    <h1>Find Your Perfect Stay</h1>
+    <p>Discover premium hotels across top cities</p>
 
-  <button type="submit">Search</button>
-</form>
+    <form class="search-box" (ngSubmit)="searchHotels()">
+      <input
+        type="text"
+        placeholder="Enter city (e.g. Delhi, Mumbai)"
+        [(ngModel)]="city"
+        name="city"
+      />
+      <button type="submit">Search</button>
+    </form>
 
-
-<p *ngIf="error" style="color:red">{{ error }}</p>
-
-<div *ngIf="hotels.length > 0">
-  <h3>Available Hotels</h3>
-
-  <div *ngFor="let hotel of hotels" style="border:1px solid #ccc; margin:10px; padding:10px">
-    <h4>{{ hotel.name }}</h4>
-    <p>{{ hotel.address }}</p>
-
-    
-    <button type="button" (click)="goToAvailability(hotel.id)">
-  Check Availability
-</button>
+    <p class="error" *ngIf="error">{{ error }}</p>
   </div>
+</section>
 
- 
+<!-- SEARCH RESULTS -->
+<section class="results" *ngIf="hotels.length > 0">
+  <h2>Available Hotels</h2>
 
-</div>
+  <div class="hotel-grid">
+    <div class="hotel-card" *ngFor="let hotel of hotels">
+      <h3>{{ hotel.name }}</h3>
+      <p class="address">{{ hotel.address }}</p>
+
+      <button (click)="goToAvailability(hotel.id)">
+        Check Availability
+      </button>
+    </div>
+  </div>
+</section>

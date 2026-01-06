@@ -8,10 +8,10 @@ import { AuthService } from '../../../../core/services/auth.service';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './login.html'
+  templateUrl: './login.html',
+  styleUrls: ['../register/register.css'] 
 })
 export class LoginComponent {
-
   email = '';
   password = '';
   error = '';
@@ -22,16 +22,16 @@ export class LoginComponent {
   ) {}
 
   login() {
+    this.error = '';
+
     this.authService.login({
       email: this.email,
       password: this.password
     }).subscribe({
       next: (res) => {
-        
         this.authService.saveToken(res.token);
-        
+
         const role = this.authService.getRoleFromToken();
-      
         switch (role) {
           case 'ADMIN':
             this.router.navigate(['/admin']);
@@ -50,7 +50,7 @@ export class LoginComponent {
         this.error =
           typeof err.error === 'string'
             ? err.error
-            : 'Invalid credentials';
+            : 'Invalid email or password';
       }
     });
   }

@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
   standalone: true,
   selector: 'app-search',
   imports: [CommonModule, FormsModule],
-  templateUrl: './search.html'
+  templateUrl: './search.html',
+  styleUrls: ['./search.css']
 })
 export class SearchComponent {
 

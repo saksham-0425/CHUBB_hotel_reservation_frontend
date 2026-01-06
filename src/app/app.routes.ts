@@ -4,8 +4,8 @@ export const appRoutes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./features/user/pages/home/home')
-        .then(c => c.Home)
+      import('./features/user/pages/search/search')
+        .then(c => c.SearchComponent)
   },
   {
     path: 'user',

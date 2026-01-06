@@ -8,12 +8,6 @@ import { BookingDetailsComponent } from './pages/booking-details/booking-details
 
 export const USER_ROUTES: Routes = [
   {
-    path: 'search',
-    loadComponent: () =>
-      import('./pages/search/search')
-        .then(c => c.SearchComponent)
-  },
-  {
   path: 'bookings/create',
   loadComponent: () =>
     import('./pages/create-booking/create-booking')

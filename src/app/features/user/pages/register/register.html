@@ -1,18 +1,64 @@
-<h2>Register</h2>
+<div class="auth-page">
+  <div class="auth-card">
+    <h2>Create Account</h2>
+    <p class="subtitle">Join HotelChain to book your stay</p>
 
-<form (ngSubmit)="register()">
-  <div>
-    <label>Email</label>
-    <input type="email" [(ngModel)]="email" name="email" required />
+    <form (ngSubmit)="register()" novalidate>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          required
+          placeholder="you@example.com"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+          (input)="checkPassword()"
+          placeholder="Create a strong password"
+        />
+      </div>
+
+      <!-- PASSWORD RULES -->
+      <ul class="password-rules">
+        <li [class.valid]="passwordRules.length">
+          At least 8 characters
+        </li>
+        <li [class.valid]="passwordRules.uppercase">
+          One uppercase letter
+        </li>
+        <li [class.valid]="passwordRules.number">
+          One number
+        </li>
+        <li [class.valid]="passwordRules.special">
+          One special character
+        </li>
+      </ul>
+
+      <button
+        type="submit"
+        [disabled]="!isPasswordValid"
+        class="btn-primary"
+      >
+        Register
+      </button>
+    </form>
+
+    <p class="success" *ngIf="message">{{ message }}</p>
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+    <p class="switch">
+      Already have an account?
+      <a routerLink="/user/login">Login</a>
+    </p>
   </div>
-
-  <div>
-    <label>Password</label>
-    <input type="password" [(ngModel)]="password" name="password" required />
-  </div>
-
-  <button type="submit">Register</button>
-</form>
-
-<p style="color: green" *ngIf="message">{{ message }}</p>
-<p style="color: red" *ngIf="error">{{ error }}</p>
+</div>

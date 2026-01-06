@@ -1,0 +1,130 @@
+/* HERO SECTION */
+.hero {
+  height: 100vh;
+  background-image: url('/assets/hero-hotel.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.hero-content {
+  position: relative;
+  color: #fff;
+  text-align: center;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+/* SEARCH BOX */
+.search-box {
+  display: flex;
+  background: #fff;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 15px 20px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-box button {
+  background: #c59d5f;
+  color: #fff;
+  border: none;
+  padding: 0 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search-box button:hover {
+  background: #b0894f;
+}
+
+.error {
+  margin-top: 15px;
+  color: #ffb3b3;
+}
+
+/* RESULTS SECTION */
+.results {
+  padding: 60px 8%;
+  background: #f9f9f9;
+}
+
+.results h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* HOTEL GRID */
+.hotel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.hotel-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hotel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.hotel-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.hotel-card .address {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.hotel-card button {
+  width: 100%;
+  padding: 12px;
+  background: #1e1e2f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.hotel-card button:hover {
+  background: #343454;
+}
