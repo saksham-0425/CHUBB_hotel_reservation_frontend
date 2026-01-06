@@ -1,0 +1,168 @@
+.manager-bookings-page {
+  min-height: 100vh;
+  padding: 96px 8% 60px;
+  background: linear-gradient(135deg, #f9f7f3, #f1ede4);
+}
+
+/* HEADER */
+.page-header {
+  margin-bottom: 28px;
+}
+
+.page-header h2 {
+  font-size: 2.1rem;
+  color: #1e1e2f;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* STATES */
+.loading-text,
+.empty-text {
+  color: #666;
+}
+
+.success-banner {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.error-banner {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+/* TABLE CARD (SCROLL INSIDE) */
+.table-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.1);
+
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+/* TABLE */
+.hotel-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto; /* 🔥 IMPORTANT FIX */
+}
+
+/* HEADER */
+.hotel-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+
+  background: #f4f1ea;
+  padding: 14px 16px;
+
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+
+  white-space: nowrap;
+}
+
+/* CELLS */
+.hotel-table td {
+  padding: 16px;
+  border-top: 1px solid #eee;
+
+  font-size: 0.95rem;
+  text-align: left;
+
+  vertical-align: middle;
+}
+
+/* ALIGNMENT */
+.hotel-table td:nth-child(6),
+.hotel-table td:nth-child(7) {
+  text-align: center;
+}
+
+.action-col {
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* TEXT */
+.mono {
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.guest {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.amount {
+  font-weight: 600;
+}
+
+/* STATUS */
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-badge.booked {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.status-badge.confirmed {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.confirmed-text {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+/* BUTTON */
+.btn-primary.small {
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: none;
+  background: linear-gradient(135deg, #c59d5f, #b0894f);
+  color: #fff;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.btn-primary.small:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ROW HOVER */
+.hotel-table tbody tr:hover {
+  background: #faf8f4;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .manager-bookings-page {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}

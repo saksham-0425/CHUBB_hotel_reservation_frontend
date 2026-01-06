@@ -33,26 +33,20 @@ textarea {
   border: 1px solid #ccc;
   font-size: 0.95rem;
 }
-
 textarea {
   width: 100%;
   margin-bottom: 16px;
 }
-
-/* CATEGORY CARD */
 .category-card {
   background: #faf8f4;
   border-radius: 12px;
   padding: 18px;
   margin-bottom: 18px;
 }
-
 .category-card h4 {
   margin-bottom: 12px;
   color: #1e1e2f;
 }
-
-/* MESSAGES */
 .success-banner {
   background: #e8f5e9;
   color: #2e7d32;
@@ -61,7 +55,6 @@ textarea {
   margin-bottom: 18px;
   font-weight: 600;
 }
-
 .error-banner {
   background: #ffebee;
   color: #c62828;
@@ -69,15 +62,11 @@ textarea {
   border-radius: 10px;
   margin-bottom: 18px;
 }
-
-/* ACTIONS */
 .actions {
   margin-top: 28px;
   display: flex;
   justify-content: flex-end;
 }
-
-/* BUTTONS */
 .btn-primary {
   padding: 12px 28px;
   border-radius: 26px;
@@ -87,12 +76,10 @@ textarea {
   font-size: 0.95rem;
   cursor: pointer;
 }
-
 .btn-primary:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
-
 .btn-outline {
   margin-top: 10px;
   padding: 8px 18px;

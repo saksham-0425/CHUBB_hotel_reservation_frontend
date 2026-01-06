@@ -1,54 +1,70 @@
-<h2>Hotel Bookings</h2>
+<div class="manager-bookings-page">
+  <div class="page-header">
+    <h2>Hotel Bookings</h2>
+    <p class="subtitle">Manage and confirm bookings</p>
+  </div>
+  <p *ngIf="loading" class="loading-text">Loading bookings...</p>
+  <div *ngIf="successMessage" class="success-banner">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="error-banner">
+    {{ errorMessage }}
+  </div>
+  <div class="table-card" *ngIf="!loading && bookings.length > 0">
+    <table class="hotel-table">
+      <thead>
+        <tr>
+          <th>Reference</th>
+          <th>Status</th>
+          <th>Guest</th>
+          <th>Check-in</th>
+          <th>Check-out</th>
+          <th>Rooms</th>
+          <th>Amount</th>
+          <th class="action-col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of bookings">
 
-<!-- Loading -->
-<p *ngIf="loading">Loading bookings...</p>
-
-<!-- Error -->
-<p *ngIf="!loading && errorMessage" style="color:red">
-  {{ errorMessage }}
-</p>
-
-<table *ngIf="!loading && bookings.length > 0">
-  <thead>
-    <tr>
-      <th>Reference</th>
-      <th>Status</th>
-      <th>Guest</th>
-      <th>Check-in</th>
-      <th>Check-out</th>
-      <th>Rooms</th>
-      <th>Amount</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let booking of bookings">
-      <td>{{ booking.bookingReference }}</td>
-      <td>{{ booking.status }}</td>
-      <td>{{ booking.guestName }}</td>
-      <td>{{ booking.checkInDate }}</td>
-      <td>{{ booking.checkOutDate }}</td>
-      <td>{{ booking.numberOfRooms }}</td>
-      <td>₹{{ booking.totalAmount }}</td>
-      <td>
-        <button
-          *ngIf="booking.status === 'BOOKED'"
-          (click)="confirmBooking(booking.bookingId)">
-          Confirm
-        </button>
-
-        <span
-          *ngIf="booking.status === 'CONFIRMED'"
-          style="color: green;">
-          Confirmed
-        </span>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- Empty -->
-<p *ngIf="!loading && bookings.length === 0">
-  No bookings found.
-</p>
+          <td class="mono">
+            {{ booking.bookingReference }}
+          </td>
+          <td>
+            <span
+              class="status-badge"
+              [ngClass]="booking.status.toLowerCase()">
+              {{ booking.status }}
+            </span>
+          </td>
+          <td class="guest">
+            {{ booking.guestName || 'UNKNOWN' }}
+          </td>
+          <td>{{ booking.checkInDate }}</td>
+          <td>{{ booking.checkOutDate }}</td>
+          <td>{{ booking.numberOfRooms }}</td>
+          <td class="amount">
+            ₹{{ booking.totalAmount }}
+          </td>
+          <td class="action-col">
+            <button
+              *ngIf="booking.status === 'BOOKED'"
+              class="btn-primary small"
+              [disabled]="confirmingId === booking.bookingId"
+              (click)="confirmBooking(booking.bookingId)">
+              {{ confirmingId === booking.bookingId ? 'Confirming…' : 'Confirm' }}
+            </button>
+            <span
+              *ngIf="booking.status === 'CONFIRMED'"
+              class="confirmed-text">
+              Confirmed
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p *ngIf="!loading && bookings.length === 0" class="empty-text">
+    No bookings found.
+  </p>
+</div>

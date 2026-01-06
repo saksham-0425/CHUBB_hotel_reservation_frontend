@@ -6,49 +6,34 @@
   </div>
 
   <div class="card">
-
-    <!-- SUCCESS -->
     <div *ngIf="successMessage" class="success-banner">
       {{ successMessage }}
     </div>
-
-    <!-- ERROR -->
     <div *ngIf="errorMessage" class="error-banner">
       {{ errorMessage }}
     </div>
-
-    <!-- HOTEL INFO -->
     <h3>Hotel Details</h3>
-
     <div class="form-grid">
       <input placeholder="Hotel Name" [(ngModel)]="name" />
       <input placeholder="City" [(ngModel)]="city" />
       <input placeholder="Manager Email" [(ngModel)]="managerEmail" />
       <input placeholder="Address" [(ngModel)]="address" />
     </div>
-
     <textarea
       placeholder="Description"
       rows="3"
       [(ngModel)]="description">
     </textarea>
-
     <input
       placeholder="Amenities (comma separated)"
       [(ngModel)]="amenitiesText"
     />
-
     <hr />
-
-    <!-- ROOM CATEGORIES -->
     <h3>Room Categories</h3>
-
     <div
       class="category-card"
       *ngFor="let c of roomCategories; let i = index">
-
       <h4>Category {{ i + 1 }}</h4>
-
       <div class="form-grid">
         <input placeholder="Category Name" [(ngModel)]="c.category" />
         <input type="number" placeholder="Total Rooms" [(ngModel)]="c.totalRooms" />
@@ -56,11 +41,9 @@
         <input type="number" placeholder="Base Price" [(ngModel)]="c.basePrice" />
       </div>
     </div>
-
     <button class="btn-outline" (click)="addCategory()">
       + Add Category
     </button>
-
     <div class="actions">
       <button
         class="btn-primary"
@@ -69,6 +52,5 @@
         {{ loading ? 'Creating...' : 'Create Hotel' }}
       </button>
     </div>
-
   </div>
 </div>

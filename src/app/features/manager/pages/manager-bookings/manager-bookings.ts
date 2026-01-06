@@ -15,6 +15,8 @@ export class ManagerBookingsComponent implements OnInit {
   bookings: BookingResponse[] = [];
   loading = true;
   errorMessage = '';
+  successMessage = '';
+  confirmingId: number | null = null;
 
   constructor(
     private bookingService: BookingService,
@@ -28,6 +30,7 @@ export class ManagerBookingsComponent implements OnInit {
   fetchBookings(): void {
     this.loading = true;
     this.errorMessage = '';
+    this.successMessage = '';
 
     this.bookingService.getHotelBookings().subscribe({
       next: (data) => {
@@ -44,16 +47,20 @@ export class ManagerBookingsComponent implements OnInit {
   }
 
   confirmBooking(bookingId: number): void {
-    const confirmed = confirm('Confirm this booking?');
-    if (!confirmed) return;
+    this.confirmingId = bookingId;
+    this.successMessage = '';
+    this.errorMessage = '';
 
     this.bookingService.confirmBooking(bookingId).subscribe({
       next: () => {
-        alert('Booking confirmed');
-        this.fetchBookings(); 
+        this.successMessage = 'Booking confirmed successfully';
+        this.confirmingId = null;
+        this.fetchBookings();
       },
       error: () => {
-        alert('Failed to confirm booking');
+        this.errorMessage = 'Failed to confirm booking';
+        this.confirmingId = null;
+        this.cdr.detectChanges();
       }
     });
   }
