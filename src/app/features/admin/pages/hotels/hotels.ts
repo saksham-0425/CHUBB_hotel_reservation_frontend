@@ -49,4 +49,5 @@ export class HotelsComponent implements OnInit {
   openHotel(hotelId: number): void {
     this.router.navigate(['/admin/hotels', hotelId]);
   }
+
 }

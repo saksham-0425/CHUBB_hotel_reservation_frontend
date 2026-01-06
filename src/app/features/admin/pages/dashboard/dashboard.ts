@@ -183,4 +183,8 @@ export class DashboardComponent implements OnInit {
   goToHotels(): void {
     this.router.navigate(['/admin/hotels']);
   }
+
+  goToCreateHotel(): void {
+  this.router.navigate(['/admin/create-hotel']);
+}
 }

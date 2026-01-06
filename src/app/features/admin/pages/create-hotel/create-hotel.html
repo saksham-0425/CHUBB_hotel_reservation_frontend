@@ -1,28 +1,74 @@
-<h3>Create Hotel</h3>
+<div class="create-hotel-page">
 
-<input placeholder="Hotel Name" [(ngModel)]="name" />
-<input placeholder="City" [(ngModel)]="city" />
-<input placeholder="Address" [(ngModel)]="address" />
-<input placeholder="Description" [(ngModel)]="description" />
-<input placeholder="Manager Email" [(ngModel)]="managerEmail" />
+  <div class="page-header">
+    <h2>Create Hotel</h2>
+    <p class="subtitle">Add a new hotel and its room categories</p>
+  </div>
 
-<input
-  placeholder="Amenities (comma separated)"
-  [(ngModel)]="amenitiesText"
-/>
+  <div class="card">
 
-<hr />
+    <!-- SUCCESS -->
+    <div *ngIf="successMessage" class="success-banner">
+      {{ successMessage }}
+    </div>
 
-<h4>Room Categories</h4>
+    <!-- ERROR -->
+    <div *ngIf="errorMessage" class="error-banner">
+      {{ errorMessage }}
+    </div>
 
-<div *ngFor="let c of roomCategories; let i = index">
-  <input placeholder="Category" [(ngModel)]="c.category" />
-  <input type="number" placeholder="Total Rooms" [(ngModel)]="c.totalRooms" />
-  <input type="number" placeholder="Capacity" [(ngModel)]="c.capacity" />
-  <input type="number" placeholder="Base Price" [(ngModel)]="c.basePrice" />
+    <!-- HOTEL INFO -->
+    <h3>Hotel Details</h3>
+
+    <div class="form-grid">
+      <input placeholder="Hotel Name" [(ngModel)]="name" />
+      <input placeholder="City" [(ngModel)]="city" />
+      <input placeholder="Manager Email" [(ngModel)]="managerEmail" />
+      <input placeholder="Address" [(ngModel)]="address" />
+    </div>
+
+    <textarea
+      placeholder="Description"
+      rows="3"
+      [(ngModel)]="description">
+    </textarea>
+
+    <input
+      placeholder="Amenities (comma separated)"
+      [(ngModel)]="amenitiesText"
+    />
+
+    <hr />
+
+    <!-- ROOM CATEGORIES -->
+    <h3>Room Categories</h3>
+
+    <div
+      class="category-card"
+      *ngFor="let c of roomCategories; let i = index">
+
+      <h4>Category {{ i + 1 }}</h4>
+
+      <div class="form-grid">
+        <input placeholder="Category Name" [(ngModel)]="c.category" />
+        <input type="number" placeholder="Total Rooms" [(ngModel)]="c.totalRooms" />
+        <input type="number" placeholder="Capacity" [(ngModel)]="c.capacity" />
+        <input type="number" placeholder="Base Price" [(ngModel)]="c.basePrice" />
+      </div>
+    </div>
+
+    <button class="btn-outline" (click)="addCategory()">
+      + Add Category
+    </button>
+
+    <div class="actions">
+      <button
+        class="btn-primary"
+        [disabled]="loading"
+        (click)="createHotel()">
+        {{ loading ? 'Creating...' : 'Create Hotel' }}
+      </button>
+    </div>
+
+  </div>
 </div>
-
-<button (click)="addCategory()">+ Add Category</button>
-
-<br /><br />
-<button (click)="createHotel()">Create Hotel</button>

@@ -29,5 +29,13 @@ export const adminRoutes: Routes = [
       .then(m => m.HotelBookingsComponent)
 }
     ]
-  }
+  },
+ 
+   {
+        path: 'create-hotel',
+        loadComponent: () =>
+          import('./pages/create-hotel/create-hotel')
+            .then(m => m.CreateHotelComponent)
+      }
+
 ];
