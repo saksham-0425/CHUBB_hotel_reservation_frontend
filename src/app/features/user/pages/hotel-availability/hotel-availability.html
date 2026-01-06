@@ -1,55 +1,45 @@
 <div class="availability-page">
-
   <div class="availability-card">
     <h2>Check Availability</h2>
-
     <div class="date-row">
       <div class="form-group">
         <label>Check-in</label>
-        <input type="date" [(ngModel)]="checkIn" />
+        <input type="date" [(ngModel)]="checkIn" [min]="today" (change)="onCheckInChange()" />
       </div>
-
       <div class="form-group">
         <label>Check-out</label>
-        <input type="date" [(ngModel)]="checkOut" />
+        <input type="date" [(ngModel)]="checkOut" [min]="minCheckout || today" />
       </div>
-
-      <button class="btn-primary" (click)="searchAvailability()">
+      <button class="btn-primary" (click)="searchAvailability()"
+        [disabled]="!checkIn || !checkOut || checkOut <= checkIn">
         Search
       </button>
+      <p *ngIf="loading">Checking availability...</p>
+      <p *ngIf="!loading && errorMessage" class="error">
+        {{ errorMessage }}
+      </p>
     </div>
-
-    <p class="error" *ngIf="error">{{ error }}</p>
-  </div>
-  <div class="results" *ngIf="availability">
-
-    <h3>Available Rooms</h3>
-
-    <div class="room-grid">
-      <div class="room-card"
-           *ngFor="let c of availability.categories">
-
-        <div class="room-header">
-          <h4>{{ c.categoryName }}</h4>
-          <span
-            class="badge"
-            [class.low]="c.availableRooms <= 3">
-            {{ c.availableRooms }} left
-          </span>
+    <p class="error" *ngIf="checkIn && checkOut && checkOut <= checkIn">
+      Check-out date must be at least one day after check-in.
+    </p>
+    <div class="results" *ngIf="!loading && availability">
+      <h3>Available Rooms</h3>
+      <div class="room-grid">
+        <div class="room-card" *ngFor="let c of availability.categories">
+          <div class="room-header">
+            <h4>{{ c.categoryName }}</h4>
+            <span class="badge" [class.low]="c.availableRooms <= 3">
+              {{ c.availableRooms }} left
+            </span>
+          </div>
+          <p class="price">
+            ₹{{ c.pricePerNight }}
+            <span>/ night</span>
+          </p>
+          <button class="btn-secondary" (click)="goToBooking(c.categoryId)">
+            Book Now
+          </button>
         </div>
-
-        <p class="price">
-          ₹{{ c.pricePerNight }} <span>/ night</span>
-        </p>
-
-        <button
-          class="btn-secondary"
-          (click)="goToBooking(c.categoryId)">
-          Book Now
-        </button>
       </div>
     </div>
-
   </div>
-
-</div>

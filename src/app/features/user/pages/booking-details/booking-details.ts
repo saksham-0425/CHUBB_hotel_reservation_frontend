@@ -8,7 +8,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-booking-details',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './booking-details.html'
+  templateUrl: './booking-details.html',
+  styleUrls: ['./booking-details.css']
 })
 export class BookingDetailsComponent implements OnInit {
 

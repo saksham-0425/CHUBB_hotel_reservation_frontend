@@ -1,0 +1,115 @@
+.booking-details-page {
+  min-height: 100vh;
+  padding-top: 96px;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(135deg, #f9f7f3, #f1ede4);
+}
+.details-card {
+  width: 100%;
+  max-width: 560px;
+  background: #fff;
+  padding: 36px 40px 42px;
+  border-radius: 18px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header h2 {
+  font-size: 1.8rem;
+  color: #1e1e2f;
+}
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.status-badge.booked {
+  background: #fff3e0;
+  color: #e65100;
+}
+.status-badge.confirmed {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.status-badge.cancelled {
+  background: #fdecea;
+  color: #c62828;
+}
+.reference {
+  margin-top: 10px;
+  color: #555;
+}
+.status-message {
+  margin: 16px 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+.status-message.confirmed {
+  color: #2e7d32;
+}
+.status-message.cancelled {
+  color: #c62828;
+}
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+.info-grid label {
+  font-size: 0.75rem;
+  color: #777;
+}
+.info-grid p {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-top: 4px;
+}
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  margin-top: 18px;
+}
+.btn-primary {
+  width: 100%;
+  margin-top: 22px;
+  padding: 14px;
+  border-radius: 28px;
+  border: none;
+  background: linear-gradient(135deg, #c59d5f, #b0894f);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  box-shadow: 0 12px 25px rgba(197, 157, 95, 0.4);
+}
+.success-text {
+  margin-top: 16px;
+  color: #2e7d32;
+  text-align: center;
+}
+.error-text {
+  color: #c62828;
+}
+.loading-text {
+  margin-top: 140px;
+  font-size: 0.95rem;
+}
+@media (max-width: 600px) {
+  .details-card {
+    margin: 0 16px;
+    padding: 30px 24px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}

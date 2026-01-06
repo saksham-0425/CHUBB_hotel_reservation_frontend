@@ -1,24 +1,51 @@
-<h2>Book Room</h2>
+<div class="booking-page">
 
-<form [formGroup]="bookingForm" (ngSubmit)="submitBooking()">
+  <div class="booking-card">
 
-  <label>Guest Name</label><br />
-  <input type="text" formControlName="guestName" /><br /><br />
+    <h2>Confirm Your Booking</h2>
+    <p class="subtitle">Please review the details below</p>
 
-  <label>Number of Guests</label><br />
-  <input type="number" formControlName="numberOfGuests" min="1" /><br /><br />
+    <form [formGroup]="bookingForm" (ngSubmit)="submitBooking()">
 
-  <label>Number of Rooms</label><br />
-  <input type="number" formControlName="numberOfRooms" min="1" /><br /><br />
+      <div class="form-group full">
+        <label>Guest Name</label>
+        <input type="text" formControlName="guestName" placeholder="Enter guest name" />
+      </div>
 
-  <label>Check-in Date</label><br />
-  <input type="date" formControlName="checkInDate" /><br /><br />
+      <div class="form-row">
+        <div class="form-group">
+          <label>Number of Guests</label>
+          <input type="number" min="1" formControlName="numberOfGuests" />
+        </div>
 
-  <label>Check-out Date</label><br />
-  <input type="date" formControlName="checkOutDate" /><br /><br />
+        <div class="form-group">
+          <label>Number of Rooms</label>
+          <input type="number" min="1" formControlName="numberOfRooms" />
+        </div>
+      </div>
 
-  <button type="submit" [disabled]="bookingForm.invalid">
-    Confirm Booking
-  </button>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Check-in Date</label>
+          <input type="date" formControlName="checkInDate" />
+        </div>
 
-</form>
+        <div class="form-group">
+          <label>Check-out Date</label>
+          <input type="date" formControlName="checkOutDate" />
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn-primary"
+        [disabled]="bookingForm.invalid"
+      >
+        Confirm Booking
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

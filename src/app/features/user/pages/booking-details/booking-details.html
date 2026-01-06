@@ -1,55 +1,73 @@
-<h2>Booking Details</h2>
-
-<!-- Loading state -->
-<p *ngIf="loading">Loading booking details...</p>
-
-<!-- Error state -->
-<p *ngIf="!loading && errorMessage" style="color:red">
-  {{ errorMessage }}
-</p>
-
-<!-- Booking details -->
-<div *ngIf="!loading && booking">
-
-  <p><b>Booking Reference:</b> {{ booking.bookingReference }}</p>
-  <p><b>Status:</b> {{ booking.status }}</p>
-
-  <!-- Status messages -->
-  <p *ngIf="booking.status === 'BOOKED'">
-    Awaiting confirmation from hotel manager.
+<div class="booking-details-page">
+  <p *ngIf="loading" class="loading-text">
+    Loading booking details...
   </p>
-
-  <p *ngIf="booking.status === 'CONFIRMED'">
-    Your booking is confirmed. Please arrive on time.
+  <p *ngIf="!loading && errorMessage" class="error-text">
+    {{ errorMessage }}
   </p>
+  <div *ngIf="!loading && booking" class="details-card">
+    <div class="header">
+      <h2>Booking Details</h2>
+      <span
+        class="status-badge"
+        [ngClass]="booking.status.toLowerCase()"
+      >
+        {{ booking.status }}
+      </span>
+    </div>
+    <p class="reference">
+      Reference: <strong>{{ booking.bookingReference }}</strong>
+    </p>
+    <p class="status-message" *ngIf="booking.status === 'BOOKED'">
+      Awaiting confirmation from hotel manager.
+    </p>
+    <p class="status-message confirmed" *ngIf="booking.status === 'CONFIRMED'">
+      Your booking is confirmed. Please arrive on time.
+    </p>
+    <p class="status-message cancelled" *ngIf="booking.status === 'CANCELLED'">
+      This booking has been cancelled.
+    </p>
+    <hr />
+    <div class="info-grid">
+      <div>
+        <label>Guest Name</label>
+        <p>{{ booking.guestName }}</p>
+      </div>
+      <div>
+        <label>Guests</label>
+        <p>{{ booking.numberOfGuests }}</p>
+      </div>
+      <div>
+        <label>Rooms</label>
+        <p>{{ booking.numberOfRooms }}</p>
+      </div>
+    </div>
 
-  <p *ngIf="booking.status === 'CANCELLED'" style="color:red">
-    This booking has been cancelled.
-  </p>
-
-  <hr />
-
-  <p><b>Guest Name:</b> {{ booking.guestName }}</p>
-  <p><b>Number of Guests:</b> {{ booking.numberOfGuests }}</p>
-  <p><b>Number of Rooms:</b> {{ booking.numberOfRooms }}</p>
-
-  <hr />
-
-  <p><b>Check-in Date:</b> {{ booking.checkInDate }}</p>
-  <p><b>Check-out Date:</b> {{ booking.checkOutDate }}</p>
-
-  <hr />
-
-  <p><b>Total Amount:</b> ₹{{ booking.totalAmount }}</p>
-  <button
-  *ngIf="booking.status === 'CONFIRMED' && !paymentDone"
-  (click)="payBooking()">
-  Pay Now
-</button>
-
-<p *ngIf="paymentDone" style="color:green">
-  Payment completed successfully.
-</p>
-
-
+    <hr />
+    <div class="info-grid">
+      <div>
+        <label>Check-in</label>
+        <p>{{ booking.checkInDate }}</p>
+      </div>
+      <div>
+        <label>Check-out</label>
+        <p>{{ booking.checkOutDate }}</p>
+      </div>
+    </div>
+    <hr />
+    <div class="price-row">
+      <span>Total Amount</span>
+      <strong>₹{{ booking.totalAmount }}</strong>
+    </div>
+    <button
+      class="btn-primary"
+      *ngIf="booking.status === 'CONFIRMED' && !paymentDone"
+      (click)="payBooking()"
+    >
+      Pay Now
+    </button>
+    <p *ngIf="paymentDone" class="success-text">
+      Payment completed successfully.
+    </p>
+  </div>
 </div>
