@@ -81,8 +81,6 @@
 .navbar:not(.transparent) .btn-outline {
   border-color: #1e1e2f;
 }
-
-/* LOGOUT */
 .btn-logout {
   padding: 6px 16px;
   border-radius: 20px;

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgApexchartsModule } from 'ng-apexcharts';
-
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -27,16 +26,16 @@ export class DashboardComponent implements OnInit {
   year = new Date().getFullYear();
   loading = true;
 
-  avgRevenue!: number;
+  avgRevenue = 0;
 
-  bookingStatusChart!: {
+  bookingStatusChart?: {
     series: ApexNonAxisChartSeries;
     chart: ApexChart;
     labels: string[];
     title: ApexTitleSubtitle;
   };
 
-  monthlyBookingsChart!: {
+  monthlyBookingsChart?: {
     series: ApexAxisChartSeries;
     chart: ApexChart;
     xaxis: ApexXAxis;
@@ -49,74 +48,75 @@ export class DashboardComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
 
- ngOnInit(): void {
-  const storedHotelId = localStorage.getItem('managerHotelId');
+  ngOnInit(): void {
+    const storedHotelId = localStorage.getItem('managerHotelId');
 
-  if (!storedHotelId) {
-    console.error('Manager hotelId not found');
-    this.router.navigate(['/login']);
-    return;
+    if (!storedHotelId) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.hotelId = Number(storedHotelId);
+    this.loadDashboard();
   }
 
-  this.hotelId = Number(storedHotelId);
-  this.loadDashboard();
-}
+loadDashboard(): void {
+  this.loading = true;
 
-  loadDashboard(): void {
-    this.loadAvgRevenue();
-    this.loadBookingStatus();
-    this.loadMonthlyBookings();
-    this.loading = false;
-  }
+  let completed = 0;
+  const total = 3;
 
-  
-  loadAvgRevenue(): void {
-    this.reportService.getAverageRevenue(this.hotelId)
-      .subscribe(res => {
-        this.avgRevenue = res.averageRevenue;
-        this.cdr.detectChanges();
-      });
-  }
+  const done = () => {
+    completed++;
+    if (completed === total) {
+      this.loading = false;
+      this.cdr.detectChanges();
+    }
+  };
 
- 
-  loadBookingStatus(): void {
-    const from = `${this.year}-01-01`;
-    const to = new Date().toISOString().split('T')[0];
+  // Avg Revenue (unchanged)
+  this.reportService.getAverageRevenue(this.hotelId)
+    .subscribe(res => {
+      this.avgRevenue = res.averageRevenue ?? 0;
+      done();
+    });
 
-    this.reportService.getOccupancy(this.hotelId, from, to)
-      .subscribe(data => {
+  // 👇 CURRENT MONTH RANGE
+  const { from, to } = this.getCurrentMonthRange();
 
+  // Booking Status Distribution (CURRENT MONTH)
+  this.reportService.getOccupancy(this.hotelId, from, to)
+    .subscribe(data => {
+      if (data && data.length > 0) {
         this.bookingStatusChart = {
           series: data.map(d => d.count),
-          chart: { type: 'donut', height: 300 },
-          labels: data.map(d => d.status),
-          title: { text: 'Booking Status Distribution' }
+          chart: { type: 'donut' },
+          labels: data.map(d => d.status.replace('_', ' ')),
+          title: { text: 'Booking Status Distribution (This Month)' }
         };
+      }
+      done();
+    });
 
-        this.cdr.detectChanges();
-      });
-  }
-
-
-  loadMonthlyBookings(): void {
-    this.reportService.getMonthlyOccupancy(this.hotelId, this.year)
-      .subscribe(data => {
-
+  // Monthly booking volume (still yearly – this is correct)
+  this.reportService.getMonthlyOccupancy(this.hotelId, this.year)
+    .subscribe(data => {
+      if (data && data.length > 0) {
         this.monthlyBookingsChart = {
           series: [{
             name: 'Bookings',
-            data: data.map(d => d.occupiedBookings)
+            data: data.map(d => d.occupiedBookings ?? 0)
           }],
-          chart: { type: 'line', height: 300 },
+          chart: { type: 'line' },
           xaxis: { categories: data.map(d => d.month) },
           title: { text: `Monthly Booking Volume (${this.year})` }
         };
+      }
+      done();
+    });
+}
 
-        this.cdr.detectChanges();
-      });
-  }
 
- 
   goToBookings(): void {
     this.router.navigate(['/manager/bookings']);
   }
@@ -132,4 +132,20 @@ export class DashboardComponent implements OnInit {
   goToReceptionists(): void {
     this.router.navigate(['/manager/receptionists']);
   }
+
+  private getCurrentMonthRange(): { from: string; to: string } {
+  const now = new Date();
+
+  // First day of current month
+  const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+
+  // Last day of current month
+  const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+  const from = firstDay.toISOString().split('T')[0];
+  const to = lastDay.toISOString().split('T')[0];
+
+  return { from, to };
+}
+
 }

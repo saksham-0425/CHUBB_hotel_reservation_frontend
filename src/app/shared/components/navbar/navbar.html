@@ -1,6 +1,6 @@
 <nav class="navbar" [class.transparent]="isHome">
   <div class="nav-left">
-    <a routerLink="/" class="brand">HotelChain</a>
+    <a routerLink="/" class="brand">Citrus Cove</a>
   </div>
 
   <div class="nav-right">
@@ -9,32 +9,20 @@
   <a routerLink="/user/login" class="nav-link">Login</a>
   <a routerLink="/user/register" class="btn-primary">Register</a>
 </ng-container>
-
-    <!-- LOGGED IN -->
     <ng-container *ngIf="authService.isLoggedIn()">
-
-      <!-- ADMIN -->
       <a *ngIf="role === 'ADMIN'" routerLink="/admin/dashboard">
         Admin Dashboard
       </a>
-
-      <!-- MANAGER -->
       <a *ngIf="role === 'MANAGER'" routerLink="/manager">
         Manager Dashboard
       </a>
-
-      <!-- RECEPTIONIST -->
       <a *ngIf="role === 'RECEPTIONIST'" routerLink="/receptionist">
         Receptionist Dashboard
       </a>
-
-      <!-- GUEST -->
       <a *ngIf="role === 'GUEST'" routerLink="/user/bookings">
         My Bookings
       </a>
-
       <button class="btn-logout" (click)="logout()">Logout</button>
     </ng-container>
-
   </div>
 </nav>
