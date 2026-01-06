@@ -1,0 +1,115 @@
+.admin-hotel-details {
+  min-height: 100vh;
+  padding: 96px 8% 60px;
+  background: linear-gradient(135deg, #f9f7f3, #f1ede4);
+}
+.page-header {
+  margin-bottom: 28px;
+}
+.page-header h2 {
+  font-size: 2.1rem;
+  color: #1e1e2f;
+}
+.subtitle {
+  font-size: 0.95rem;
+  color: #666;
+}
+.loading-text,
+.empty-text {
+  color: #666;
+}
+.error-text {
+  color: #c62828;
+}
+.card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 14px 36px rgba(0,0,0,0.1);
+}
+.hotel-info h3 {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+}
+.info-grid p {
+  margin: 6px 0;
+}
+.hotel-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.hotel-table th {
+  background: #f4f1ea;
+  padding: 14px 16px;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+.hotel-table td {
+  padding: 16px;
+  border-top: 1px solid #eee;
+}
+.action-col {
+  text-align: center;
+}
+.hotel-table th,
+.hotel-table td {
+  text-align: center;
+  vertical-align: middle;
+}
+.hotel-table th:nth-child(1),
+.hotel-table td:nth-child(1) {
+  width: 25%;
+  text-align: left;   
+}
+.hotel-table th:nth-child(2),
+.hotel-table td:nth-child(2) {
+  width: 15%;
+}
+.hotel-table th:nth-child(3),
+.hotel-table td:nth-child(3) {
+  width: 15%;
+}
+.hotel-table th:nth-child(4),
+.hotel-table td:nth-child(4) {
+  width: 20%;
+}
+.hotel-table th:nth-child(5),
+.hotel-table td:nth-child(5) {
+  width: 25%;
+}
+.form-card input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.form-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+}
+.btn-primary {
+  background: #1e1e2f;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 22px;
+  cursor: pointer;
+}
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid #1e1e2f;
+  padding: 8px 18px;
+  border-radius: 22px;
+  cursor: pointer;
+}
+.btn-ghost {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+}

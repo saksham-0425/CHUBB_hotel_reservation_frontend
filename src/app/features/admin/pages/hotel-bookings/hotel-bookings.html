@@ -1,43 +1,50 @@
-<h2>Hotel Bookings</h2>
-
-<!-- Loading -->
-<p *ngIf="loading">Loading bookings...</p>
-
-<!-- Error -->
-<p *ngIf="!loading && errorMessage" style="color:red">
-  {{ errorMessage }}
-</p>
-
-<!-- Table -->
-<table *ngIf="!loading && bookings.length > 0">
-  <thead>
-    <tr>
-      <th>Reference</th>
-      <th>Status</th>
-      <th>Guest</th>
-      <th>Guests</th>
-      <th>Rooms</th>
-      <th>Check-in</th>
-      <th>Check-out</th>
-      <th>Amount</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let b of bookings">
-      <td>{{ b.bookingReference }}</td>
-      <td>{{ b.status }}</td>
-      <td>{{ b.guestName }}</td>
-      <td>{{ b.numberOfGuests }}</td>
-      <td>{{ b.numberOfRooms }}</td>
-      <td>{{ b.checkInDate }}</td>
-      <td>{{ b.checkOutDate }}</td>
-      <td>₹{{ b.totalAmount }}</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- Empty -->
-<p *ngIf="!loading && bookings.length === 0 && !errorMessage">
-  No bookings found for this hotel.
-</p>
+<div class="admin-hotel-bookings">
+  <div class="page-header">
+    <h2>Hotel Bookings</h2>
+    <p class="subtitle">All bookings for this hotel</p>
+  </div>
+  <p *ngIf="loading" class="loading-text">
+    Loading bookings...
+  </p>
+  <p *ngIf="!loading && errorMessage" class="error-text">
+    {{ errorMessage }}
+  </p>
+  <div class="table-card" *ngIf="!loading && bookings.length > 0">
+    <table class="hotel-table">
+      <thead>
+        <tr>
+          <th>Reference</th>
+          <th>Status</th>
+          <th>Guest</th>
+          <th>Guests</th>
+          <th>Rooms</th>
+          <th>Check-in</th>
+          <th>Check-out</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let b of bookings">
+          <td class="mono">{{ b.bookingReference }}</td>
+          <td>
+            <span class="status-badge {{ b.status | lowercase }}">
+              {{ b.status }}
+            </span>
+          </td>
+          <td>{{ b.guestName }}</td>
+          <td>{{ b.numberOfGuests }}</td>
+          <td>{{ b.numberOfRooms }}</td>
+          <td>{{ b.checkInDate }}</td>
+          <td>{{ b.checkOutDate }}</td>
+          <td class="amount">₹{{ b.totalAmount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p
+    *ngIf="!loading && bookings.length === 0 && !errorMessage"
+    class="empty-text"
+  >
+    No bookings found for this hotel.
+  </p>
+</div>
