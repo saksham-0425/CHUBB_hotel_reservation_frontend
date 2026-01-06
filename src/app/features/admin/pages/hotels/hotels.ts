@@ -9,7 +9,8 @@ import { CreateHotelComponent } from '../create-hotel/create-hotel';
   selector: 'app-admin-hotels',
   standalone: true,
   imports: [CommonModule, CreateHotelComponent],
-  templateUrl: './hotels.html'
+  templateUrl: './hotels.html',
+  styleUrls: ['./hotels.css']
 })
 export class HotelsComponent implements OnInit {
 

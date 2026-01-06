@@ -1,51 +1,58 @@
-<h2>My Bookings</h2>
+<div class="my-bookings-page">
+  <h2 class="page-title">My Bookings</h2>
+  <p *ngIf="loading" class="loading-text">
+    Loading your bookings...
+  </p>
+  <p *ngIf="!loading && errorMessage" class="error-text">
+    {{ errorMessage }}
+  </p>
+  <p *ngIf="!loading && bookings.length === 0 && !errorMessage"
+     class="empty-text">
+    You have no bookings yet.
+  </p>
+  <div class="booking-list" *ngIf="!loading && bookings.length > 0">
+    <div class="booking-card" *ngFor="let booking of bookings">
+      <div class="card-header">
+        <div>
+          <p class="reference">{{ booking.bookingReference }}</p>
+          <span
+            class="status-badge"
+            [ngClass]="booking.status.toLowerCase()"
+          >
+            {{ booking.status }}
+          </span>
+        </div>
+        <p class="amount">₹{{ booking.totalAmount }}</p>
+      </div>
+      <div class="dates">
+        <div>
+          <label>Check-in</label>
+          <p>{{ booking.checkInDate }}</p>
+        </div>
 
-<!-- Loading state -->
-<p *ngIf="loading">Loading your bookings...</p>
-<p *ngIf="!loading && errorMessage" style="color:red">
-  {{ errorMessage }}
-</p>
-
-<table *ngIf="!loading && bookings.length > 0">
-  <thead>
-    <tr>
-      <th>Reference</th>
-      <th>Status</th>
-      <th>Check-in</th>
-      <th>Check-out</th>
-      <th>Amount</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let booking of bookings">
-      <td>{{ booking.bookingReference }}</td>
-      <td>{{ booking.status }}</td>
-      <td>{{ booking.checkInDate }}</td>
-      <td>{{ booking.checkOutDate }}</td>
-      <td>₹{{ booking.totalAmount }}</td>
-      <td>
-  <button (click)="viewBooking(booking.bookingId)">
-    View
-  </button>
-
-  <button
-  *ngIf="booking.status === 'CONFIRMED' && !isPaid(booking.bookingId)"
-  (click)="payBooking(booking.bookingId)">
-  Pay
-</button>
-
-<span *ngIf="isPaid(booking.bookingId)" style="color:green; margin-left:8px">
-  Paid
-</span>
-</td>
-      
-    </tr>
-  </tbody>
-</table>
-
-<!-- Empty state -->
-<p *ngIf="!loading && bookings.length === 0 && !errorMessage">
-  You have no bookings yet.
-</p>
+        <div>
+          <label>Check-out</label>
+          <p>{{ booking.checkOutDate }}</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn-outline" (click)="viewBooking(booking.bookingId)">
+          View
+        </button>
+        <button
+          class="btn-primary"
+          *ngIf="booking.status === 'CONFIRMED' && !isPaid(booking.bookingId)"
+          (click)="payBooking(booking.bookingId)"
+        >
+          Pay
+        </button>
+        <span
+          class="paid-badge"
+          *ngIf="isPaid(booking.bookingId)"
+        >
+          Paid
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -34,7 +34,7 @@ export class LoginComponent {
         const role = this.authService.getRoleFromToken();
         switch (role) {
           case 'ADMIN':
-            this.router.navigate(['/admin']);
+            this.router.navigate(['/admin/dashboard']);
             break;
           case 'MANAGER':
             this.router.navigate(['/manager']);

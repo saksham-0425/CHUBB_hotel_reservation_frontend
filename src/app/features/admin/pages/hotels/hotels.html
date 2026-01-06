@@ -1,37 +1,54 @@
-<h2>Hotels</h2>
+<div class="admin-hotels-page">
 
-<!-- Loading state -->
-<p *ngIf="loading">Loading hotels...</p>
+  <div class="page-header">
+    <h2>Hotels</h2>
+    <p class="subtitle">Manage all registered hotels</p>
+  </div>
+  <p *ngIf="loading" class="loading-text">
+    Loading hotels...
+  </p>
+  <p *ngIf="!loading && errorMessage" class="error-text">
+    {{ errorMessage }}
+  </p>
+  <p
+    *ngIf="!loading && hotels.length === 0 && !errorMessage"
+    class="empty-text"
+  >
+    No hotels found.
+  </p>
+  <div
+    class="table-card"
+    *ngIf="!loading && hotels.length > 0"
+  >
+    <table class="hotel-table">
+      <thead>
+        <tr>
+          <th>Hotel Name</th>
+          <th>City</th>
+          <th class="action-col">Action</th>
+        </tr>
+      </thead>
 
-<!-- Error state -->
-<p *ngIf="!loading && errorMessage" style="color:red">
-  {{ errorMessage }}
-</p>
+      <tbody>
+        <tr *ngFor="let hotel of hotels">
+          <td class="hotel-name">
+            {{ hotel.name }}
+          </td>
 
-<!-- Table -->
-<table *ngIf="!loading && hotels.length > 0">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>City</th>
-      <th>Action</th>
-    </tr>
-  </thead>
+          <td class="city">
+            {{ hotel.city }}
+          </td>
 
-  <tbody>
-    <tr *ngFor="let hotel of hotels">
-      <td>{{ hotel.name }}</td>
-      <td>{{ hotel.city }}</td>
-      <td>
-        <button (click)="openHotel(hotel.id)">
-          View
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- Empty state -->
-<p *ngIf="!loading && hotels.length === 0 && !errorMessage">
-  No hotels found.
-</p>
+          <td class="action-col">
+            <button
+              class="btn-outline"
+              (click)="openHotel(hotel.id)"
+            >
+              View
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

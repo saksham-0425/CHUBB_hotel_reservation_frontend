@@ -1,25 +1,169 @@
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 16px;
+PAGE
+.my-bookings-page {
+  min-height: 100vh;
+  padding-top: 96px;
+  padding-left: 8%;
+  padding-right: 8%;
+  background: linear-gradient(135deg, #f9f7f3, #f1ede4);
 }
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 10px;
+/* TITLE */
+.page-title {
+  font-size: 2rem;
+  margin-bottom: 32px;
+  color: #1e1e2f;
+}
+
+/* LIST */
+.booking-list {
+  display: grid;
+  gap: 28px;
+}
+
+/* CARD */
+.booking-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 28px 34px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.booking-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.14);
+}
+
+/* HEADER */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reference {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #1e1e2f;
+  margin-bottom: 8px;
+}
+
+/* STATUS BADGE */
+.status-badge {
+  padding: 6px 16px;
+  border-radius: 18px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.booked {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.status-badge.confirmed {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.cancelled {
+  background: #fdecea;
+  color: #c62828;
+}
+
+/* AMOUNT */
+.amount {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1e1e2f;
+}
+
+/* DATES */
+.dates {
+  display: grid;
+  grid-template-columns: auto auto; 
+  gap: 60px;                      
+  margin: 24px 0;
+  max-width: 420px;                 
+}
+
+.dates div {
   text-align: left;
 }
 
-th {
-  background-color: #f4f4f4;
-  font-weight: bold;
+.dates label {
+  font-size: 0.8rem;
+  color: #777;
 }
 
-tr:nth-child(even) {
-  background-color: #fafafa;
+.dates p {
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-top: 6px;
+  color: #1e1e2f;
 }
 
-button {
-  padding: 6px 12px;
+/* ACTIONS */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+
+/* BUTTONS */
+.btn-outline {
+  padding: 10px 22px;
+  border-radius: 24px;
+  border: 1.5px solid #1e1e2f;
+  background: transparent;
+  color: #1e1e2f;
+  font-size: 0.95rem;
   cursor: pointer;
 }
+
+.btn-outline:hover {
+  background: #1e1e2f;
+  color: #fff;
+}
+
+.btn-primary {
+  padding: 10px 24px;
+  border-radius: 24px;
+  border: none;
+  background: linear-gradient(135deg, #c59d5f, #b0894f);
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 10px 26px rgba(197, 157, 95, 0.45);
+}
+
+/* PAID */
+.paid-badge {
+  font-size: 1rem;
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+/* MOBILE */
+/* MOBILE */
+@media (max-width: 768px) {
+  .booking-card {
+    padding: 22px;
+  }
+
+  .dates {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
