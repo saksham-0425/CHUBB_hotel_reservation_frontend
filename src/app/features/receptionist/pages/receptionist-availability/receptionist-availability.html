@@ -1,10 +1,8 @@
 <h2>Hotel Rooms</h2>
-
 <p *ngIf="loading">Loading rooms...</p>
-<p *ngIf="!loading && errorMessage" style="color:red">
+<p *ngIf="!loading && errorMessage" class="error-text">
   {{ errorMessage }}
 </p>
-
 <table *ngIf="!loading && rooms.length > 0">
   <thead>
     <tr>
@@ -14,22 +12,30 @@
       <th>Action</th>
     </tr>
   </thead>
-
   <tbody>
     <tr *ngFor="let room of rooms">
       <td>{{ room.roomNumber }}</td>
       <td>{{ room.category }}</td>
-      <td>{{ room.status }}</td>
       <td>
-        <button
-          *ngIf="room.status === 'CHECKED_OUT'"
-          (click)="makeAvailable(room.roomId)"
-        >
-          Make Available
+        <span class="status {{ room.status.toLowerCase() }}">
+          {{ room.status }}
+        </span>
+      </td>
+      <td>
+        <button class="btn-primary" *ngIf="room.status === 'CLEANING'" (click)="makeAvailable(room.roomId)">
+          Mark Available
         </button>
-
-        <span *ngIf="room.status !== 'CHECKED_OUT'">
-          —
+        <span class="action-text occupied" *ngIf="room.status === 'OCCUPIED'">
+          Guest yet to check out
+        </span>
+        <span class="action-text available" *ngIf="room.status === 'AVAILABLE'">
+          Available for booking
+        </span>
+        <span class="action-text maintenance" *ngIf="room.status === 'MAINTENANCE'">
+          Under maintenance
+        </span>
+        <span class="action-text out-of-service" *ngIf="room.status === 'OUT_OF_SERVICE'">
+          Out of service
         </span>
       </td>
     </tr>

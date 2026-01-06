@@ -1,0 +1,121 @@
+/* PAGE CONTAINER */
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 96px 8% 60px;
+  background: linear-gradient(135deg, #f9f7f3, #f1ede4);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+h2 {
+  font-size: 2.1rem;
+  font-weight: 600;
+  color: #1e1e2f;
+  margin-bottom: 24px;
+}
+.loading-text {
+  font-size: 1rem;
+  color: #666;
+}
+.error-text {
+  color: #c62828;
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+}
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+thead {
+  background: #f5f6fa;
+}
+th {
+  text-align: left;
+  padding: 14px 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #555;
+  border-bottom: 1px solid #e6e6e6;
+}
+td {
+  padding: 14px 18px;
+  font-size: 0.95rem;
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+tbody tr:last-child td {
+  border-bottom: none;
+}
+tbody tr:hover {
+  background: #fafafa;
+}
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+.status.available {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.status.occupied {
+  background: #ffebee;
+  color: #c62828;
+}
+.status.cleaning {
+  background: #fff8e1;
+  color: #ef6c00;
+}
+.status.maintenance,
+.status.out_of_service {
+  background: #eeeeee;
+  color: #616161;
+}
+.btn-primary {
+  background: #3f51b5;
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.btn-primary:hover {
+  background: #35449b;
+}
+.btn-primary:active {
+  transform: scale(0.97);
+}
+.btn-primary:disabled {
+  background: #b0b7e3;
+  cursor: not-allowed;
+}
+p:last-of-type {
+  font-size: 0.95rem;
+  color: #777;
+  margin-top: 20px;
+}
+.action-text {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.action-text.occupied {
+  color: #c62828;
+}
+.action-text.available {
+  color: #2e7d32;
+}
+.action-text.maintenance,
+.action-text.out-of-service {
+  color: #757575;
+}

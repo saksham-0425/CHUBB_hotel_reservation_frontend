@@ -6,7 +6,8 @@ import { HotelService } from '../../services/hotel';
   standalone: true,
   selector: 'app-receptionist-availability',
   imports: [CommonModule],
-  templateUrl: './receptionist-availability.html'
+  templateUrl: './receptionist-availability.html',
+  styleUrls: ['./receptionist-availability.css']
 })
 export class ReceptionistAvailabilityComponent implements OnInit {
 
@@ -68,17 +69,15 @@ bootstrapReceptionistContext(): void {
   }
 
   makeAvailable(roomId: number): void {
-    const confirmed = confirm('Mark this room as AVAILABLE?');
-    if (!confirmed) return;
+  if (!confirm('Mark this room as AVAILABLE?')) return;
 
-    this.hotelService.updateRoomStatus(roomId, 'AVAILABLE').subscribe({
-      next: () => {
-        alert('Room marked as AVAILABLE');
-        this.loadRooms(); 
-      },
-      error: () => {
-        alert('Failed to update room status');
-      }
-    });
-  }
+  this.hotelService.updateRoomStatus(roomId, 'AVAILABLE').subscribe({
+    next: () => this.loadRooms(),
+    error: () => {
+      this.errorMessage = 'Failed to update room status';
+      this.cdr.detectChanges();
+    }
+  });
+}
+
 }

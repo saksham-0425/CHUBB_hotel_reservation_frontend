@@ -1,31 +1,57 @@
-<h2>Booking Lookup</h2>
-
-<input
-  placeholder="Enter booking reference"
-  [(ngModel)]="reference"
-/>
-
-<button (click)="searchBooking()">Search</button>
-
-<p *ngIf="loading">Loading...</p>
-<p *ngIf="errorMessage" style="color:red">{{ errorMessage }}</p>
-
-<div *ngIf="booking">
-  <p><b>Status:</b> {{ booking.status }}</p>
-  <p><b>Guest:</b> {{ booking.guestEmail }}</p>
-  <p><b>Room:</b> {{ booking.roomNumber }}</p>
-
-  <button
-    *ngIf="booking.status === 'CONFIRMED'"
-    (click)="checkIn()"
-  >
-    Check-in
-  </button>
-
-  <button
-    *ngIf="booking.status === 'CHECKED_IN'"
-    (click)="checkOut()"
-  >
-    Check-out
-  </button>
+<div class="receptionist-booking-page">
+  <div class="page-header">
+    <h2>Booking Lookup</h2>
+    <p class="subtitle">Search bookings and manage check-in / check-out</p>
+  </div>
+  <div class="card">
+    <h3>Search Booking</h3>
+    <input
+      placeholder="Enter booking reference"
+      [(ngModel)]="reference"
+    />
+    <button
+      class="btn-primary"
+      [disabled]="loading || !reference"
+      (click)="searchBooking()"
+    >
+      Search
+    </button>
+  </div>
+  <p *ngIf="loading" class="loading-text">Loading...</p>
+  <div *ngIf="successMessage" class="success-banner">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="error-banner">
+    {{ errorMessage }}
+  </div>
+  <div class="card booking-card" *ngIf="booking">
+    <div class="booking-header">
+      <span class="reference">{{ booking.bookingReference }}</span>
+      <span class="status-badge {{ booking.status | lowercase }}">
+        {{ booking.status }}
+      </span>
+    </div>
+    <div class="booking-details">
+      <p><b>Guest:</b> {{ booking.guestName }}</p>
+      <p><b>Room:</b> {{ booking.roomNumber }}</p>
+    </div>
+    <div class="actions">
+      <button
+        class="btn-primary"
+        *ngIf="booking.status === 'CONFIRMED'"
+        [disabled]="loading"
+        (click)="checkIn()"
+      >
+        Check-in
+      </button>
+      <button
+        class="btn-outline"
+        *ngIf="booking.status === 'CHECKED_IN'"
+        [disabled]="loading"
+        (click)="checkOut()"
+      >
+        Check-out
+      </button>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,159 @@
+/* BK-2FD002FA1C */
+
+/* PAGE */
+.receptionist-booking-page {
+  min-height: 100vh;
+  padding: 96px 8% 60px;
+  background: linear-gradient(135deg, #f9f7f3, #f1ede4);
+}
+
+/* HEADER */
+.page-header {
+  margin-bottom: 28px;
+}
+
+.page-header h2 {
+  font-size: 2.1rem;
+  color: #1e1e2f;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* CARD */
+.card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 26px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 14px;
+  color: #1e1e2f;
+}
+
+/* INPUT */
+.card input {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  width: 260px;
+  margin-right: 12px;
+}
+
+/* STATES */
+.loading-text {
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.success-banner {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.error-banner {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+/* BOOKING CARD */
+.booking-card {
+  max-width: 520px;
+}
+
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.reference {
+  font-family: monospace;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* STATUS */
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-badge.confirmed {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.status-badge.checked_in {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.checked_out {
+  background: #eeeeee;
+  color: #555;
+}
+
+/* ACTIONS */
+.actions {
+  margin-top: 18px;
+  display: flex;
+  gap: 14px;
+}
+
+/* BUTTONS */
+.btn-primary {
+  padding: 10px 24px;
+  border-radius: 26px;
+  border: none;
+  background: linear-gradient(135deg, #c59d5f, #b0894f);
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-outline {
+  padding: 10px 24px;
+  border-radius: 26px;
+  border: 1.5px solid #1e1e2f;
+  background: transparent;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background: #1e1e2f;
+  color: #fff;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .receptionist-booking-page {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .card input {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+}
