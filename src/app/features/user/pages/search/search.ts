@@ -18,35 +18,43 @@ export class SearchComponent {
   city = '';
   hotels: Hotel[] = [];
   error = '';
- 
-
-  constructor(private hotelService: HotelService,
-     private router: Router
+  featuredCities = ['Delhi', 'Mumbai', 'Bangalore', 'Goa', 'Jaipur'];
+constructor(
+    private hotelService: HotelService,
+    private router: Router
   ) {}
-
-  searchHotels() {
-    if (!this.city) {
-      this.error = 'City is required';
-      return;
-    }
-
-    this.hotelService.searchByCity(this.city).subscribe({
-      next: (res) => {
-        this.hotels = res;
-        this.error = '';
-      },
-      error: () => {
-        this.error = 'No hotels found';
-        this.hotels = [];
-      }
-    });
+searchHotels() {
+  if (!this.city) {
+    this.error = 'City is required';
+    return;
   }
 
-  goToAvailability(hotelId: number) {
-  this.router.navigate([
-    '/user/hotels',
-    hotelId,
-    'availability'
-  ]);
+  this.hotelService.searchByCity(this.city).subscribe({
+    next: (res) => {
+      this.hotels = res;
+      this.error = '';
+
+      setTimeout(() => {
+        document.querySelector('.results')
+          ?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    },
+    error: () => {
+      this.error = 'No hotels found';
+      this.hotels = [];
+    }
+  });
 }
+
+goToAvailability(hotelId: number) {
+    this.router.navigate([
+      '/user/hotels',
+      hotelId,
+      'availability'
+    ]);
+  }
+quickSearch(city: string) {
+    this.city = city;
+    this.searchHotels();
+  }
 }

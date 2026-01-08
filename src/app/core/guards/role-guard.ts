@@ -13,6 +13,8 @@ export const roleGuard: CanActivateFn = (route) => {
     return true;
   }
 
-  router.navigate(['/']);
+  router.navigate(['/'], {
+  queryParams: { unauthorized: true }
+});
   return false;
 };

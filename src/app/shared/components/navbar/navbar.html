@@ -1,6 +1,8 @@
 <nav class="navbar" [class.transparent]="isHome">
   <div class="nav-left">
-    <a routerLink="/" class="brand">Citrus Cove</a>
+   <a (click)="goHome()" class="brand" style="cursor:pointer;">
+  Citrus Cove
+</a>
   </div>
 
   <div class="nav-right">

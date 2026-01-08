@@ -1,4 +1,4 @@
-<!-- HERO SECTION -->
+<!-- ================= HERO SECTION ================= -->
 <section class="hero">
   <div class="overlay"></div>
 
@@ -20,7 +20,7 @@
   </div>
 </section>
 
-<!-- SEARCH RESULTS -->
+<!-- ================= SEARCH RESULTS (TOP PRIORITY) ================= -->
 <section class="results" *ngIf="hotels.length > 0">
   <h2>Available Hotels</h2>
 
@@ -35,3 +35,76 @@
     </div>
   </div>
 </section>
+
+<!-- ================= PRE-SEARCH CONTENT ================= -->
+<ng-container *ngIf="hotels.length === 0">
+
+  <!-- FEATURED CITIES -->
+  <section class="featured">
+    <h2>Popular Destinations</h2>
+
+    <div class="city-grid">
+      <div
+        class="city-card"
+        *ngFor="let c of featuredCities"
+        (click)="quickSearch(c)"
+      >
+        {{ c }}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="why-us">
+    <h2>Why Choose Citrus Cove?</h2>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>Premium Hotels</h3>
+        <p>
+          Handpicked hotels offering comfort,
+          elegance, and exceptional service.
+        </p>
+      </div>
+
+      <div class="why-card">
+        <h3>Secure Booking</h3>
+        <p>
+          Role-based access, JWT authentication,
+          and secure payment handling.
+        </p>
+      </div>
+
+      <div class="why-card">
+        <h3>Seamless Experience</h3>
+        <p>
+          Search, book, and manage stays
+          in just a few clicks.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works">
+    <h2>How It Works</h2>
+
+    <div class="steps">
+      <div class="step">
+        <span>1</span>
+        <p>Search hotels by city</p>
+      </div>
+
+      <div class="step">
+        <span>2</span>
+        <p>Check availability & pricing</p>
+      </div>
+
+      <div class="step">
+        <span>3</span>
+        <p>Book and enjoy your stay</p>
+      </div>
+    </div>
+  </section>
+
+</ng-container>

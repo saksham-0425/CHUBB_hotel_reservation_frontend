@@ -1,33 +1,50 @@
 <div class="booking-details-page">
+
+  <!-- LOADING -->
   <p *ngIf="loading" class="loading-text">
     Loading booking details...
   </p>
+
+  <!-- ERROR -->
   <p *ngIf="!loading && errorMessage" class="error-text">
     {{ errorMessage }}
   </p>
+
+  <!-- MAIN CARD -->
   <div *ngIf="!loading && booking" class="details-card">
+
+    <!-- HEADER -->
     <div class="header">
       <h2>Booking Details</h2>
       <span
         class="status-badge"
         [ngClass]="booking.status.toLowerCase()"
       >
-        {{ booking.status }}
+        {{ booking.status.replace('_', ' ') }}
       </span>
     </div>
+
     <p class="reference">
-      Reference: <strong>{{ booking.bookingReference }}</strong>
+      Reference:
+      <strong>{{ booking.bookingReference }}</strong>
     </p>
+
+    <!-- STATUS MESSAGES -->
     <p class="status-message" *ngIf="booking.status === 'BOOKED'">
       Awaiting confirmation from hotel manager.
     </p>
+
     <p class="status-message confirmed" *ngIf="booking.status === 'CONFIRMED'">
       Your booking is confirmed. Please arrive on time.
     </p>
+
     <p class="status-message cancelled" *ngIf="booking.status === 'CANCELLED'">
       This booking has been cancelled.
     </p>
+
     <hr />
+
+    <!-- GUEST INFO -->
     <div class="info-grid">
       <div>
         <label>Guest Name</label>
@@ -44,6 +61,8 @@
     </div>
 
     <hr />
+
+    <!-- DATES -->
     <div class="info-grid">
       <div>
         <label>Check-in</label>
@@ -54,11 +73,16 @@
         <p>{{ booking.checkOutDate }}</p>
       </div>
     </div>
+
     <hr />
+
+    <!-- PRICE -->
     <div class="price-row">
       <span>Total Amount</span>
       <strong>₹{{ booking.totalAmount }}</strong>
     </div>
+
+    <!-- ACTION BUTTONS -->
     <button
       class="btn-primary"
       *ngIf="booking.status === 'CONFIRMED' && !paymentDone"
@@ -66,8 +90,49 @@
     >
       Pay Now
     </button>
-    <p *ngIf="paymentDone" class="success-text">
-      Payment completed successfully.
+
+    <button
+      class="btn-cancel"
+      [disabled]="!canCancel()"
+      (click)="openCancelModal()"
+    >
+      Cancel Booking
+    </button>
+
+    <!-- INFO MESSAGE -->
+    <p
+      *ngIf="!canCancel() && booking.status !== 'CANCELLED'"
+      class="info-text"
+    >
+      You cannot cancel a booking after check-in.
     </p>
+
+    <!-- SUCCESS -->
+    <p *ngIf="successMessage" class="success-text">
+      {{ successMessage }}
+    </p>
+
   </div>
+
+  <!-- 🔴 CANCEL CONFIRMATION MODAL -->
+  <div class="modal-backdrop" *ngIf="showCancelModal">
+    <div class="modal">
+      <h3>Cancel Booking</h3>
+      <p>
+        Are you sure you want to cancel this booking?
+        This action cannot be undone.
+      </p>
+
+      <div class="modal-actions">
+        <button class="btn-outline" (click)="closeCancelModal()">
+          No, Go Back
+        </button>
+
+        <button class="btn-danger" (click)="confirmCancelBooking()">
+          Yes, Cancel Booking
+        </button>
+      </div>
+    </div>
+  </div>
+
 </div>

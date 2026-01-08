@@ -40,4 +40,10 @@ payForBooking(bookingId: number) {
   );
 }
 
+cancelBooking(bookingId: number) {
+  return this.http.delete(
+    `${this.BASE_URL}/${bookingId}`
+  );
+}
+
 }

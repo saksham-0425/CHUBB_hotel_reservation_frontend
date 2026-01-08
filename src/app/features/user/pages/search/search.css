@@ -128,3 +128,104 @@
 .hotel-card button:hover {
   background: #343454;
 }
+/* FEATURED CITIES */
+.featured {
+  padding: 70px 8%;
+  background: #fff;
+  text-align: center;
+}
+
+.featured h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.city-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.city-card {
+  padding: 14px 26px;
+  border-radius: 30px;
+  background: #f3efe7;
+  color: #1e1e2f;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.city-card:hover {
+  background: #c59d5f;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* WHY US */
+.why-us {
+  padding: 80px 8%;
+  background: #f9f7f3;
+  text-align: center;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.why-card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.why-card h3 {
+  margin-bottom: 10px;
+  color: #c59d5f;
+}
+
+/* HOW IT WORKS */
+.how-it-works {
+  padding: 80px 8%;
+  text-align: center;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.step {
+  max-width: 200px;
+}
+
+.step span {
+  display: inline-block;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #c59d5f;
+  color: #fff;
+  font-weight: 700;
+  line-height: 46px;
+  margin-bottom: 12px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .steps {
+    flex-direction: column;
+  }
+}
+

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-
+import { authGuard } from './core/guards/auth-guard';
+import { roleGuard } from './core/guards/role-guard';
 export const appRoutes: Routes = [
   {
     path: '',
@@ -14,23 +15,29 @@ export const appRoutes: Routes = [
         .then(r => r.USER_ROUTES)
   },
   {
-    path: 'admin',
-    loadChildren: () =>
-      import('./features/admin/admin.routes')
-        .then(r => r.adminRoutes)
-  },
+  path: 'admin',
+  loadChildren: () =>
+    import('./features/admin/admin.routes')
+      .then(r => r.adminRoutes),
+  canActivate: [authGuard, roleGuard],
+  data: { roles: ['ADMIN'] }
+},
   {
-    path: 'manager',
-    loadChildren: () =>
-      import('./features/manager/manager.routes')
-        .then(r => r.managerRoutes)
-  },
-  {
-    path: 'receptionist',
-    loadChildren: () =>
-      import('./features/receptionist/receptionist.routes')
-        .then(r => r.RECEPTIONIST_ROUTES)
-  },
+  path: 'manager',
+  loadChildren: () =>
+    import('./features/manager/manager.routes')
+      .then(r => r.managerRoutes),
+  canActivate: [authGuard, roleGuard],
+  data: { roles: ['MANAGER'] }
+},
+ {
+  path: 'receptionist',
+  loadChildren: () =>
+    import('./features/receptionist/receptionist.routes')
+      .then(r => r.RECEPTIONIST_ROUTES),
+  canActivate: [authGuard, roleGuard],
+  data: { roles: ['RECEPTIONIST'] }
+},
   {
     path: '**',
     redirectTo: ''

@@ -34,4 +34,31 @@ export class Navbar {
     this.authService.logout();
     this.router.navigate(['/user/login']);
   }
+
+  goHome(): void {
+  const role = this.authService.getRoleFromToken();
+
+  if (!role) {
+    this.router.navigate(['/']);
+    return;
+  }
+
+  switch (role) {
+    case 'ADMIN':
+      this.router.navigate(['/admin/dashboard']);
+      break;
+
+    case 'MANAGER':
+      this.router.navigate(['/manager']);
+      break;
+
+    case 'RECEPTIONIST':
+      this.router.navigate(['/receptionist']);
+      break;
+
+    default:
+      this.router.navigate(['/']);
+  }
+}
+
 }
